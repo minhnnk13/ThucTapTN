@@ -1,0 +1,49 @@
+.box-thumbnail{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+.thumbnail-lazy{
+    position: absolute;
+    top:  0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+    background-size: cover;
+    background: no-repeat center;
+    transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+}
+.box-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@-webkit-keyframes pencipreload {
+    from {
+        background-position: -800px 0
+    }
+
+    to {
+        background-position: 100px 0
+    }
+}
+
+
+
+@keyframes pencipreload {
+    from {
+        background-position: -800px 0
+    }
+
+    to {
+        background-position: 100px 0
+    }
+}

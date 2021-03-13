@@ -1,0 +1,25 @@
+.tabs-component {
+    .tabs-component-tabs {
+      .tabs-component-tab {
+        display: inline-block;
+        a{
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-right: 10px;
+            display: block;
+            &:hover{
+                color: #fff;
+                background-color: $color-red;
+            }
+        }
+      }
+      .is-active{
+        a{
+            color: #fff;
+            background-color: $color-red;
+
+        }
+    }
+    }
+  }

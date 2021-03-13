@@ -1,0 +1,54 @@
+.pagination{
+    margin-top: 30px;
+    justify-content: center;
+    li {
+        
+        a{
+            outline: none;
+            font-weight: 700;
+            border: 2px solid #000;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 3px;
+            border-radius: 50%;
+            display: block;
+            font-family: Barlow-Bold;
+            transition: all 0.3s;
+            &:hover{
+                background-color: $color-red;
+                color: #fff;
+                border: 0px;
+            }
+        }
+        a:not([href]):not([class]){
+            &:hover{
+                color: #fff;
+            }
+        }
+    }
+    .active{
+        a{
+            background-color: $color-red;
+            color: #fff;
+            border: 0px;
+        }
+    }
+    .disabled{
+        display: none;
+    }
+}
+
+.card-body{
+    .pagination{
+        .page-item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a{
+                padding: 0;
+            }
+        }
+    }
+}

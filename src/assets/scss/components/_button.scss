@@ -1,0 +1,53 @@
+.btn{
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0 12px;
+    margin: 0px 0px 0px 8px;
+    text-align: center;
+    height: 32px;
+    outline: none;
+    font-family: Barlow-SBold;
+    min-width: 96px;
+    box-sizing: border-box;
+    background-color: $color-red;
+    line-height: 32px;
+    &:hover{
+        background-color: #811014;
+        color: #fff;
+    }
+    &--green{
+        background-color: #7a9c59;
+        &:hover{
+            background-color: #68755b;
+        }
+    }
+    &--add{
+        border-radius: 0;
+        font-size: 18px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+.btn-icon {
+    margin-left: 8px;
+    position: relative;
+    top: 1px;
+    border-radius: 4px;
+    height: 32px;
+    width: 32px;
+}
+button:disabled{
+    background-color: $color-btn-disable;
+    color: $color-text-disable;
+    cursor: not-allowed;
+}
+button{
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}

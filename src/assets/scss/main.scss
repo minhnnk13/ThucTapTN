@@ -1,0 +1,11 @@
+@import '~bootstrap/scss/bootstrap';
+@import "~@coreui/coreui/scss/coreui";
+@import './abstracts/variable';
+@import './base/reset';
+@import './base/typography';
+@import './components/button';
+@import './components/input';
+@import './components/tooltip';
+@import './components/thumbnail';
+@import './components/pagination';
+@import './components/tabs';

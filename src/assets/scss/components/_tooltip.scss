@@ -1,0 +1,21 @@
+.tooltip {
+    color: #fff;
+    background-color: $color-tooltip;
+    padding: 7px 12px;
+    position: absolute;
+    &--input{
+        right: -50px;
+        bottom: -30px;
+    }
+    &--button{
+        z-index: 9999;
+        bottom: -30px;
+        left: -30px;
+        visibility: hidden;
+    }
+}
+button{
+    &:hover .tooltip--button{
+        visibility: visible;
+    }
+}

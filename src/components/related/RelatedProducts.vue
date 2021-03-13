@@ -1,0 +1,261 @@
+<template>
+  <div class="related">
+    <div class="related__products">
+      <div class="related__title">
+        {{ title }}
+      </div>
+      <div class="related__products__content">
+        <router-link
+          to=""
+          class="product"
+          v-for="product in listProduct5"
+          :key="product.prouductId"
+        >
+          <div class="box-thumbnail">
+            <div class="thumbnail-lazy">
+              <img
+                :src="require(`../../assets/images/${product.productImage}`)"
+              />
+            </div>
+          </div>
+          <div class="content">
+            <div class="product-name">
+              <div class="format-text">
+                {{ product.productName }}
+              </div>
+            </div>
+            <div class="product-price">
+              <div class="old-price">
+                {{ product.productOldPrice }} <span>đ</span>
+              </div>
+              <div class="price">{{ product.productPrice }} <span>đ</span></div>
+            </div>
+          </div>
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ["title"],
+  data() {
+    return {
+      products: [
+        {
+          productId: 1,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 2,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 3,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 4,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 5,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 6,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 7,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 8,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 9,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 10,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 11,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        },
+        {
+          productId: 12,
+          productImage: "product.jpg",
+          productDiscount: 10,
+          productName:
+            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
+          productOldPrice: 19880000,
+          productPrice: 17880000
+        }
+      ]
+    };
+  },
+  computed: {
+    listProduct5() {
+      return this.products.slice(0, 5);
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/abstracts/variable.scss";
+.related {
+  margin-top: 40px;
+  &__title {
+    background-color: $color-red;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 16px;
+    padding: 10px 15px;
+    position: relative;
+    top: -1px;
+    width: 150px;
+    text-transform: uppercase;
+    &::before {
+      content: "";
+      position: absolute;
+      background-image: url("../../assets/images/ic_title.png");
+      background-position: center;
+      right: -45px;
+      top: -1px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 45px;
+    }
+    &::after {
+      content: "";
+      background-color: $color-red;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 270px;
+      height: 2px;
+    }
+  }
+  &__products,
+  &__news {
+    &__content {
+      .product,
+      .news {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        .box-thumbnail {
+          padding-top: 32%;
+          width: 35%;
+        }
+        .content {
+          width: 60%;
+          .product-name {
+            font-family: Barlow-SBold;
+            color: $color-black;
+            .fomat-text {
+              -webkit-line-clamp: 3;
+              min-height: 62px;
+            }
+          }
+          .product-price {
+            display: flex;
+            justify-content: space-around;
+            color: $color-red;
+            font-weight: 700;
+            span {
+              text-decoration: underline;
+            }
+            .old-price {
+              opacity: 0.7;
+              text-decoration: line-through;
+            }
+          }
+        }
+
+        &:hover {
+          .product-name {
+            color: $color-red;
+          }
+        }
+      }
+    }
+  }
+  &__news {
+    margin-top: 40px;
+    .news {
+      .box-thumbnail {
+        padding-top: 25%;
+        width: 25%;
+      }
+      .content {
+        width: 70%;
+      }
+    }
+  }
+}
+</style>

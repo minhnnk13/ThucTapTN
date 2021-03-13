@@ -1,0 +1,77 @@
+@font-face{
+    font-family: Barlow;
+    src: url('~@/assets/fonts/Barlow-Regular.ttf');
+}
+@font-face{
+    font-family: Barlow-Sbold;
+    src: url("~@/assets/fonts/Barlow-SemiBold.ttf");
+}
+@font-face{
+    font-family: Barlow-Bold;
+    src: url("~@/assets/fonts/Barlow-Bold.ttf");
+}
+@font-face{
+    font-family: Impact;
+    src: url("~@/assets/fonts/UTM Impact.ttf");
+}
+
+.t-red{
+    color: $color-icon-hover;
+}
+.flex{
+    display: flex;
+}
+.f-revert{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.f-start{
+    display: flex;
+    justify-content: flex-start;
+}
+.f-end{
+    display: flex;
+    justify-content: flex-end;
+}
+.f-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.f-a-center{
+    display: flex;
+    align-items: center;
+}
+.f-j-center{
+    display: flex;
+    justify-content: center;
+}
+.m-label-0{
+    label{
+        margin: 0;
+        margin-left: 5px;
+    }
+}
+.f-wrap{
+    flex-wrap: wrap;
+}
+.t-r{
+    text-align: right;
+}
+.w-100{
+    width: 100%;
+}
+.m-b-10{
+    margin-bottom: 10px;
+}
+.m-l-8{
+    margin-left: -8px;
+}
+.format-text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 1.5em;
+}
+
