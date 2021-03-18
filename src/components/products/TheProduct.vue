@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <router-link to="product-detail">
+    <router-link :to="'products/' + product.productId">
       <div class="box-thumbnail">
         <div class="thumbnail-lazy">
           <img :src="require(`../../assets/images/${product.productImage}`)" />

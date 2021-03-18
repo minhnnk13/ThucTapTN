@@ -7,9 +7,7 @@
   >
     <template #toggler>
       <CHeaderNavLink>
-        <div class="c-avatar">
-          <img src="img/avatars/6.jpg" class="c-avatar-img " />
-        </div>
+        <div class="c-avatar"></div>
       </CHeaderNavLink>
     </template>
     <CDropdownHeader tag="div" class="text-center" color="light">

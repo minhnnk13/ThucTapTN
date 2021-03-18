@@ -3,10 +3,10 @@ import VueRouter from "vue-router";
 const DefaultContainer = () => import("../admin/containers/DefaultContainer");
 
 // Views - Pages
-const Page404 = () => import("../admin/views/pages/Page404");
-const Page500 = () => import("../admin/views/pages/Page500");
-const Login = () => import("../admin/views/pages/Login");
-const Register = () => import("../admin/views/pages/Register");
+// const Page404 = () => import("../admin/views/pages/Page404");
+// const Page500 = () => import("../admin/views/pages/Page500");
+// const Login = () => import("../admin/views/pages/Login");
+// const Register = () => import("../admin/views/pages/Register");
 
 Vue.use(VueRouter);
 
@@ -32,7 +32,7 @@ const routes = [
           import(/* webpackChunkName: "About" */ "../views/About.vue")
       },
       {
-        path: "/product",
+        path: "/products",
         name: "Products",
         component: () =>
           import(/* webpackChunkName: "Products" */ "../views/Products.vue")
@@ -44,8 +44,9 @@ const routes = [
           import(/* webpackChunkName: "News" */ "../views/News.vue")
       },
       {
-        path: "/product-detail",
+        path: "/products/:id",
         name: "ProductDetail",
+        props: true,
         component: () =>
           import(
             /* webpackChunkName: "ProductDetail" */ "../views/ProductDetail.vue"
@@ -96,11 +97,12 @@ const routes = [
           )
       },
       {
-        path: "products",
-        name: "Products",
+        path: "product-category/:id",
+        name: "products",
+        props: true,
         component: () =>
           import(
-            /* webpackChunkName: "Products" */ "../admin/views/pages/Products"
+            /* webpackChunkName: "Categories" */ "../admin/views/pages/Products"
           )
       },
       {
@@ -140,29 +142,7 @@ const routes = [
       render(c) {
         return c("router-view");
       }
-    },
-    children: [
-      {
-        path: "404",
-        name: "Page404",
-        component: Page404
-      },
-      {
-        path: "500",
-        name: "Page500",
-        component: Page500
-      },
-      {
-        path: "login",
-        name: "Login",
-        component: Login
-      },
-      {
-        path: "register",
-        name: "Register",
-        component: Register
-      }
-    ]
+    }
   }
 ];
 

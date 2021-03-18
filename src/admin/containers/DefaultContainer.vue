@@ -6,7 +6,7 @@
       <div class="c-body">
         <main class="main">
           <div class="container-fluid">
-            <router-view></router-view>
+            <router-view :key="$route.path"></router-view>
           </div>
         </main>
       </div>
@@ -56,3 +56,4 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped></style>

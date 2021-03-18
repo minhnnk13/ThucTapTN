@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import CKEditor from "@ckeditor/ckeditor5-vue2";
 import "bootstrap";
 import "./assets/scss/main.scss";
 import CoreuiVue from "@coreui/vue";
@@ -13,6 +14,7 @@ Vue.component("tabs", Tabs);
 Vue.component("tab", Tab);
 Vue.config.productionTip = false;
 Vue.use(CoreuiVue);
+Vue.use(CKEditor);
 new Vue({
   router,
   store,

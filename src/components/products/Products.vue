@@ -21,123 +21,32 @@
 </template>
 
 <script>
+// import { mapActions, mapGetters } from "vuex";
 import TheProduct from "./TheProduct.vue";
+import axios from "axios";
 export default {
   components: { TheProduct },
-  props: ["title"],
+  props: ["title", "id"],
   data() {
     return {
-      products: [
-        {
-          productId: 1,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 2,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 3,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 4,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 5,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 6,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 7,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 8,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 9,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 10,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 11,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        },
-        {
-          productId: 12,
-          productImage: "product.jpg",
-          productDiscount: 10,
-          productName:
-            "Máy tính để bàn HP Z2 G5 Tower Workstation, Intel core i5 10500",
-          productOldPrice: 19880000,
-          productPrice: 17880000
-        }
-      ]
+      products: []
     };
+  },
+  computed: {
+    // ...mapGetters("products", { products: "getProducts" })
+  },
+  methods: {
+    // ...mapActions("products", {
+    //   loadProductsByCategory: "loadProductsByCategory"
+    // })
+    loadData() {
+      axios
+        .get("http://localhost:8080/api/products/productcategory/" + this.id)
+        .then(res => (this.products = res.data));
+    }
+  },
+  created() {
+    this.loadData();
   }
 };
 </script>

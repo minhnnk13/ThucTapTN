@@ -1,134 +1,96 @@
 <template>
-  <CCardBody>
-    <CDataTable
-      :items="items"
+  <div>
+    <the-grid
+      @addData="openDialog"
       :fields="fields"
-      column-filter
-      table-filter
-      items-per-page-select
-      :items-per-page="5"
-      hover
-      sorter
-      pagination
-    >
-      <template #status="{item}">
-        <td>
-          <CBadge class="status" :color="getBadge(item.status)">
-            {{ getStatus(item.status) }}
-          </CBadge>
-        </td>
-      </template>
-      <template #show_details="{item, index}">
-        <td class="py-2">
-          <CButton
-            color="primary"
-            variant="outline"
-            square
-            size="sm"
-            @click="toggleDetails(item, index)"
-          >
-            {{ Boolean(item._toggled) ? "Hide" : "Show" }}
-          </CButton>
-        </td>
-      </template>
-      <template #details="{item}">
-        <CCollapse :show="Boolean(item._toggled)" :duration="collapseDuration">
-          <CCardBody>
-            <CMedia
-              :aside-image-props="{
-                height: 102,
-                width: 20,
-                src: 'https://picsum.photos/1024/480/?image=54'
-              }"
-            >
-              <h4>
-                {{ item.username }}
-              </h4>
-              <p class="text-muted">User since: {{ item.registered }}</p>
-              <CButton size="sm" color="info" class="">
-                User Settings
-              </CButton>
-              <CButton size="sm" color="danger" class="ml-1">
-                Delete
-              </CButton>
-            </CMedia>
-          </CCardBody>
-        </CCollapse>
-      </template>
-    </CDataTable>
-  </CCardBody>
+      :items="banners"
+      :id="'bannerId'"
+      :name="'bannerImage'"
+      :createDate="false"
+      :imageField="'bannerImage'"
+    />
+    <div class="dialog" v-if="isDialog">
+      <h1 class="title">Banner</h1>
+      <CRow>
+        <CCol cols="1">
+          <CButtonClose buttonClasses="close" @click="closeDialog" />
+        </CCol>
+      </CRow>
+      <div class="dialog-content">
+        <CRow>
+          <CCol sm="12">
+            <input type="file" @change="choseImage" />
+          </CCol>
+          <CCol sm="12">
+            <CButtonToolbar>
+              <CButton color="danger" @click="closeDialog">Đóng</CButton>
+              <CButton color="primary" @click="addData">Lưu</CButton>
+            </CButtonToolbar>
+          </CCol>
+        </CRow>
+      </div>
+    </div>
+    <div class="overlay" v-if="isDialog"></div>
+  </div>
 </template>
-<style lang="scss" scoped>
-.status {
-  cursor: pointer;
-}
-</style>
+<style lang="scss" scoped></style>
 <script>
-const items = [
-  {
-    username: "Samppa Nori",
-    registered: "2012/01/01",
-    role: "Member",
-    status: 1
-  },
-  {
-    username: "Estavan Lykos",
-    registered: "2012/02/01",
-    role: "Staff",
-    status: 0
-  }
-];
-
-const fields = [
-  { key: "username", _style: "min-width:200px" },
-  "registered",
-  { key: "role", _style: "min-width:100px;" },
-  { key: "status", _style: "min-width:100px;" },
-  {
-    key: "show_details",
-    label: "",
-    _style: "width:1%",
-    sorter: false,
-    filter: false
-  }
-];
-
+import { mapActions, mapGetters } from "vuex";
+import TheGrid from "../../components/commons/TheGrid";
 export default {
-  name: "AdvancedTables",
+  components: {
+    TheGrid
+  },
   data() {
     return {
-      items: items.map((item, id) => {
-        return { ...item, id };
-      }),
-      fields,
-      details: [],
-      collapseDuration: 0
+      isDialog: false,
+      currentBanner: {
+        bannerImage: null
+      },
+      fields: [
+        {
+          key: "bannerImage",
+          _style: "min-width:200px",
+          label: "Danh mục sản phẩm"
+        },
+        {
+          key: "show_details",
+          label: "",
+          _style: "width:1%",
+          sorter: false,
+          filter: false
+        }
+      ]
     };
   },
+  computed: {
+    ...mapGetters("banners", { banners: "getBanners" })
+  },
   methods: {
-    getBadge(status) {
-      switch (status) {
-        case 1:
-          return "success";
-        case 0:
-          return "secondary";
-      }
+    ...mapActions("banners", { loadData: "loadData", addBanner: "addBanner" }),
+    openDialog() {
+      this.isDialog = true;
     },
-    toggleDetails(item) {
-      this.$set(this.items[item.id], "_toggled", !item._toggled);
-      this.collapseDuration = 300;
-      this.$nextTick(() => {
-        this.collapseDuration = 0;
+    closeDialog() {
+      this.isDialog = false;
+      this.currentBanner.bannerImage = null;
+    },
+    coppyfile() {
+      const fs = require("fs");
+      fs.writeFile("run.txt", 'console.log("ok"))', function() {
+        console.log("save");
       });
     },
-    getStatus(status) {
-      switch (status) {
-        case 1:
-          return "Kích hoạt";
-        case 0:
-          return "Ngừng kích hoạt";
-      }
+    choseImage(event) {
+      this.currentBanner.bannerImage = event.target.files[0].name;
+    },
+    async addData() {
+      await this.addBanner(this.currentBanner);
+      this.closeDialog();
     }
+  },
+  created() {
+    this.loadData();
   }
 };
 </script>

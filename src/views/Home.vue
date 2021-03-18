@@ -13,10 +13,10 @@
     </div>
     <div class="products">
       <div class="container">
-        <products :title="'PC ĐỒ HOẠ – WORKSTATION'" />
-        <products :title="'Máy tính để bàn'" />
-        <products :title="'Máy tính chơi game'" />
-        <products :title="'Màn hình máy tính'" />
+        <products :id="1" :title="'PC ĐỒ HOẠ – WORKSTATION'" />
+        <products :id="3" :title="'Máy tính để bàn'" />
+        <products :id="2" :title="'Máy tính chơi game'" />
+        <products :id="4" :title="'Màn hình máy tính'" />
       </div>
     </div>
     <div class="banner">
@@ -40,13 +40,18 @@ import Products from "../components/products/Products.vue";
 import TheFeedback from "../components/content/TheFeedback.vue";
 import TheNews from "../components/content/TheNews.vue";
 import TheBanner from "../components/TheBanner.vue";
+
 export default {
   components: {
     TheFeedback,
     TheNews,
     TheBanner,
     Products
-  }
+  },
+  data() {
+    return {};
+  },
+  computed: {}
 };
 </script>
 

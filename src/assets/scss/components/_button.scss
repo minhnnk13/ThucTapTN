@@ -13,11 +13,14 @@
     font-family: Barlow-SBold;
     min-width: 96px;
     box-sizing: border-box;
-    background-color: $color-red;
+    
     line-height: 32px;
-    &:hover{
-        background-color: #811014;
+    &--red{
+        background-color: $color-red;
+        &:hover{
+            background-color: #811014;
         color: #fff;
+        }
     }
     &--green{
         background-color: #7a9c59;
@@ -31,6 +34,19 @@
         height: 40px;
         line-height: 40px;
     }
+    &--primary{
+        background-color: #321fdb;
+    }
+    &--secondary{
+        background-color: #ced2d8;
+    }
+    &--success{
+        background-color: #2eb85c;
+    }
+    &--red{
+        background-color: $color-red;
+    }
+
 }
 .btn-icon {
     margin-left: 8px;

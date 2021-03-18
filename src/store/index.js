@@ -1,5 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import accounts from "./modules/accounts";
+import news from "./modules/news";
+import params from "./modules/params";
+import products from "./modules/products";
+import categories from "./modules/categories";
+import banners from "./modules/banners";
 
 Vue.use(Vuex);
 
@@ -22,5 +28,12 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: {}
+  modules: {
+    news,
+    params,
+    products,
+    accounts,
+    categories,
+    banners
+  }
 });

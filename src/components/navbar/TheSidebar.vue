@@ -5,16 +5,11 @@
       <li>
         <i class="fas fa-bars"></i> Danh mục sản phẩm
         <ul v-category>
-          <li v-for="category in categories" :key="category.id">
-            <router-link :to="category.link">
-              <img
-                :src="require(`../../assets/images/${category.icon}`)"
-                alt=""
-              />
-              {{ category.name }}
+          <li v-for="category in categories" :key="category.productCategoryId">
+            <router-link to="">
+              {{ category.productCategoryName }}
             </router-link>
           </li>
-          <div class="overlay"></div>
         </ul>
       </li>
     </ul>
@@ -22,6 +17,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   directives: {
     category: {
@@ -52,64 +48,20 @@ export default {
   computed: {
     currentRouteName() {
       return this.$route.name;
-    }
+    },
+    ...mapGetters("categories", { categories: "getCategories" })
   },
   mounted() {
     console.log(this.currentRouteName);
   },
   data() {
-    return {
-      categories: [
-        {
-          id: "1",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "l"
-        },
-        {
-          id: "2",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "k"
-        },
-        {
-          id: "3",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "j"
-        },
-        {
-          id: "4",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "h"
-        },
-        {
-          id: "5",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "f"
-        },
-        {
-          id: "6",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "d"
-        },
-        {
-          id: "7",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: ""
-        },
-        {
-          id: "8",
-          icon: "ic_pc.png",
-          name: "PC Đồ họa - workstation",
-          link: "a"
-        }
-      ]
-    };
+    return {};
+  },
+  methods: {
+    ...mapActions("categories", { loadData: "loadData" })
+  },
+  created() {
+    this.loadData();
   }
 };
 </script>

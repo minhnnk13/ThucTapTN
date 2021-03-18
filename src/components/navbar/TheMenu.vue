@@ -8,13 +8,16 @@
         <router-link to="/about">Giới thiệu</router-link>
       </li>
       <li>
-        <router-link to="/product"
+        <router-link to="/products"
           >Sản phẩm <i class="fas fa-chevron-down"></i
         ></router-link>
         <ul>
-          <li v-for="category in categories" :key="category.id">
-            <router-link :to="category.link">
-              {{ category.name }}
+          <li
+            v-for="category in categories"
+            :key="category.productCategoriesId"
+          >
+            <router-link to="">
+              {{ category.productCategoryName }}
             </router-link>
           </li>
         </ul>
@@ -39,53 +42,21 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      categories: [
-        {
-          id: "1",
-          name: "PC Đồ họa - workstation",
-          link: "r"
-        },
-        {
-          id: "2",
-          name: "PC Đồ họa - workstation",
-          link: "ewq"
-        },
-        {
-          id: "3",
-          name: "PC Đồ họa - workstation",
-          link: "re"
-        },
-        {
-          id: "4",
-          name: "PC Đồ họa - workstation",
-          link: "fdfd"
-        },
-        {
-          id: "5",
-          name: "PC Đồ họa - workstation",
-          link: "sa"
-        },
-        {
-          id: "6",
-          name: "PC Đồ họa - workstation",
-          link: "vc"
-        },
-        {
-          id: "7",
-          name: "PC Đồ họa - workstation",
-          link: "zzz"
-        },
-        {
-          id: "8",
-          name: "PC Đồ họa - workstation",
-          link: "dqe"
-        }
-      ],
       total: 2
     };
+  },
+  computed: {
+    ...mapGetters("categories", { categories: "getCategories" })
+  },
+  methods: {
+    ...mapActions("categories", { loadData: "loadData" })
+  },
+  created() {
+    this.loadData();
   }
 };
 </script>
