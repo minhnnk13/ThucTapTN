@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <img height="130px" src="@/assets/images/logo.png" alt="" />
+          <img height="130px" src="@/assets/images/logo1.png" alt="" />
         </div>
         <div class="col-md-6 f-center p-0 ">
           <div class="search ">

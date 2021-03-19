@@ -240,6 +240,7 @@ export default {
         productCategoryId: this.id
       };
       this.closeDialog();
+      this.currentProduct.createdDate = this.getCurrentDate;
     },
     removeProduct(id) {
       let r = confirm("Bạn có chắc chắn muốn xóa!");

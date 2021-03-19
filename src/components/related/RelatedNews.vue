@@ -42,84 +42,84 @@ export default {
       news: [
         {
           newsId: 1,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Bảo hành",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Bảo hành 2 năm kể từ ngày bán"
         },
         {
           newsId: 2,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Giao hàng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Giao hàng tận nơi, hàng trao tận tay"
         },
         {
           newsId: 3,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Mua 1 tặng 5",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Siêu ưu đãi mua 1 tặng 5"
         },
         {
           newsId: 4,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Thanh toán nhanh chóng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Thanh toán online hoặc thanh toans trực tiếp"
         },
         {
           newsId: 5,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Thanh toán nhanh chóng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Thanh toán online hoặc thanh toans trực tiếp"
         },
         {
           newsId: 6,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Thanh toán nhanh chóng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Thanh toán online hoặc thanh toans trực tiếp"
         },
         {
           newsId: 7,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Mua 1 tặng 5",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Siêu ưu đãi mua 1 tặng 5"
         },
         {
           newsId: 8,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Mua 1 tặng 5",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Siêu ưu đãi mua 1 tặng 5"
         },
         {
           newsId: 9,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Mua 1 tặng 5",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Siêu ưu đãi mua 1 tặng 5"
         }
       ]
     };

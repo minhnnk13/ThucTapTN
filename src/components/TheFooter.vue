@@ -84,7 +84,7 @@
             </ul>
           </div>
           <div class="col-md-3">
-            <h1>Về Nam Thanh computer</h1>
+            <h1>Về Mạnh Nhất computer</h1>
             <ul>
               <li>
                 <a href="">
@@ -93,7 +93,7 @@
               </li>
               <li>
                 <a href="">
-                  Báo chí nói về Nam Thanh computer
+                  Báo chí nói về Mạnh Nhất computer
                 </a>
               </li>
               <li>

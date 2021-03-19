@@ -55,31 +55,31 @@ export default {
       news: [
         {
           newsId: 1,
-          newsTitle: "Mạnh Hùng Computer tặng quà cực khủng - Mua 1 tặng 5",
+          newsTitle: "Mạnh Nhất Computer tặng quà cực khủng - Mua 1 tặng 5",
           newsImage: "news.jpg",
           createDate: "30/12/2020"
         },
         {
           newsId: 2,
-          newsTitle: "Mạnh Hùng Computer tặng quà cực khủng - Mua 1 tặng 5",
+          newsTitle: "Mạnh Nhất Computer tặng quà cực khủng - Mua 1 tặng 5",
           newsImage: "news.jpg",
           createDate: "30/12/2020"
         },
         {
           newsId: 3,
-          newsTitle: "Mạnh Hùng Computer tặng quà cực khủng - Mua 1 tặng 5",
+          newsTitle: "Mạnh Nhất Computer tặng quà cực khủng - Mua 1 tặng 5",
           newsImage: "news.jpg",
           createDate: "30/12/2020"
         },
         {
           newsId: 4,
-          newsTitle: "Mạnh Hùng Computer tặng quà cực khủng - Mua 1 tặng 5",
+          newsTitle: "Mạnh Nhất Computer tặng quà cực khủng - Mua 1 tặng 5",
           newsImage: "news.jpg",
           createDate: "30/12/2020"
         },
         {
           newsId: 5,
-          newsTitle: "Mạnh Hùng Computer tặng quà cực khủng - Mua 1 tặng 5",
+          newsTitle: "Mạnh Nhất Computer tặng quà cực khủng - Mua 1 tặng 5",
           newsImage: "news.jpg",
           createDate: "30/12/2020"
         }

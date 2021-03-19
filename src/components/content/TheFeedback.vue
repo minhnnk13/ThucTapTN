@@ -2,7 +2,7 @@
   <div class="feeback">
     <div class="title">
       <h1>
-        KHÁCH HÀNG NÓI VỀ MẠNH HÙNG COMPUTER
+        KHÁCH HÀNG NÓI VỀ MẠNH NHẤT COMPUTER
       </h1>
     </div>
     <div class="content">

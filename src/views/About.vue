@@ -1,15 +1,15 @@
 <template>
   <div class="container about">
-    <h1 class="title">Giới thiệu về NamThanhComputer</h1>
+    <h1 class="title">Giới thiệu về ManhNhatComputer</h1>
     <div>
       <p>
-        <b>Công ty cổ phần Nam Thanh *</b> là một trong những doanh nghiệp tiên
+        <b>Công ty cổ phần Mạnh Nhất Comuter *</b> là một trong những doanh nghiệp tiên
         phong trong lĩnh vực Công nghệ thông tin tại Hà Nội.
       </p>
       <p>
-        Với tầm nhìn dài hạn, NAMTHANHCOMPUTER tập trung đầu tư vào lĩnh vực
+        Với tầm nhìn dài hạn, ManhNhatComputer tập trung đầu tư vào lĩnh vực
         Công nghệ thông tin. Trên tinh thần phát triển bền vững và chuyên
-        nghiệp, NAMTHANHCOMPUTER được cơ cấu với các sản phẩm kinh doanh chính
+        nghiệp, ManhNhatComputer được cơ cấu với các sản phẩm kinh doanh chính
         gồm:
       </p>
       <div class="list">
@@ -35,7 +35,7 @@
       2. Giá trị cốt lõi
     </div>
     <div>
-      Văn hóa NAMTHANHCOMPUTER được thể hiện qua bốn giá trị cốt lõi:
+      Văn hóa ManhNhatComputer được thể hiện qua bốn giá trị cốt lõi:
       <span style="color: #000080; font-weight: 900; font-family: Barlow-Bold"
         >TẬN TÂM – TRÁCH NHIỆM – SÁNG TẠO – KHÁC BIỆT</span
       >
@@ -47,7 +47,7 @@
           <div><span>Tận tâm</span></div>
           <div><i>“Vượt trên sự mong đợi”</i></div>
           <p>
-            NAMTHANHCOMPUTER đặt tận tâm là nền tảng của phục vụ, lấy khách hàng
+            ManhNhatComputer đặt tận tâm là nền tảng của phục vụ, lấy khách hàng
             làm trung tâm, mang đến những giá trị đích thực tới khách hàng và
             đối tác.
           </p>
@@ -59,7 +59,7 @@
           <div><span>trách nhiệm</span></div>
           <div><i>“Chúng ta luôn cố gắng”</i></div>
           <p>
-            NAMTHANHCOMPUTER đặt chữ TÍN lên hàng đầu, luôn thể hiện tinh thần
+            ManhNhatComputer đặt chữ TÍN lên hàng đầu, luôn thể hiện tinh thần
             trách nhiệm cao cùng phương châm “Làm hết việc chứ không làm hết
             giờ”.
           </p>
@@ -71,7 +71,7 @@
           <div><span>KHÁC BIỆT</span></div>
           <i>“Dám nghĩ – Dám làm”</i>
           <p>
-            NAMTHANHCOMPUTER đặt sự khác biệt là chủ trương để xây dựng công ty
+            ManhNhatComputer đặt sự khác biệt là chủ trương để xây dựng công ty
             thành một doanh nghiệp dẫn đầu.
           </p>
         </div>
@@ -82,7 +82,7 @@
           <div><span>SÁNG TẠO</span></div>
           <i>"“Không gì là không thể”</i>
           <p>
-            HANOICOMPUTER coi sáng tạo là đòn bẩy để phát triển, luôn đề cao các
+            ManhNhatComputer coi sáng tạo là đòn bẩy để phát triển, luôn đề cao các
             sáng kiến để hoàn thiện, hiệu quả hơn, nâng tầm giá trị.
           </p>
         </div>

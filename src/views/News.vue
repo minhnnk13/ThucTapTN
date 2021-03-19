@@ -65,84 +65,83 @@ export default {
       news: [
         {
           newsId: 1,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Bảo hành hấp dẫn",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Thông tin bảo hành trong vòng 2 năm"
         },
         {
           newsId: 2,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Hướng dẫn mua hàng trực tuyến",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Hướng dẫn mua hàng trực tuyến qua website www.manhnhatpc.com"
         },
         {
           newsId: 3,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Hướng dẫn mua trả góp",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Hướng dẫn mua trả góp tại Mạnh Nhất Computer"
         },
         {
           newsId: 4,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Phương thức thanhh toán",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Phương thức thanh toán onl hoặc mua trực tiếp"
         },
         {
           newsId: 5,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Chính sách giao hàng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Giao hàng tận nha cho khách hàng"
         },
         {
           newsId: 6,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Tặng quà khủng mua 1 tặng 5",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Mạnh Nhất Computer có khuyến mãi cực sốc mua 1 tặng 5"
         },
         {
           newsId: 7,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Chính sách giao hàng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Giao hàng tận nha cho khách hàng"
         },
         {
-          newsId: 8,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Chính sách giao hàng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Giao hàng tận nha cho khách hàng"
         },
         {
           newsId: 9,
-          newsTitle: "Quý rất đẹp trai",
+          newsTitle: "Chính sách giao hàng",
           newsImage: "news.jpg",
           newsDate: "30",
           newsMonth: "12",
           newsDescription:
-            "Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai Quý rất đẹp trai"
+            "Giao hàng tận nha cho khách hàng"
         }
       ]
     };
