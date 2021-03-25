@@ -21,7 +21,7 @@
       <template #status="{item}">
         <td>
           <CBadge class="status" :color="getBadge(item.status)">
-            {{ getStatus(item.status) }}
+            {{ getStatus(item[status]) }}
           </CBadge>
         </td>
       </template>
@@ -39,7 +39,7 @@
           </CButton>
         </td>
       </template>
-      <template #details="{item}">
+      <template #details="{item}" v-if="imageField">
         <CCollapse :show="Boolean(item._toggled)" :duration="collapseDuration">
           <CCardBody>
             <CMedia
@@ -55,7 +55,12 @@
               <p class="text-muted" v-if="item.createdDate">
                 Tạo ngày : {{ item.createdDate }}
               </p>
-              <CButton size="sm" color="info" class="">
+              <CButton
+                size="sm"
+                color="info"
+                class=""
+                @click="updateData(item[id])"
+              >
                 Sửa
               </CButton>
               <CButton
@@ -77,7 +82,15 @@
 <script>
 export default {
   name: "AdvancedTables",
-  props: ["fields", "items", "id", "name", "createDate", "imageField"],
+  props: [
+    "fields",
+    "items",
+    "id",
+    "name",
+    "createDate",
+    "imageField",
+    "status"
+  ],
   data() {
     return {
       collapseDuration: 0
@@ -101,14 +114,17 @@ export default {
     },
     getStatus(status) {
       switch (status) {
-        case 1:
+        case true:
           return "Kích hoạt";
-        case 0:
+        case false:
           return "Ngừng kích hoạt";
       }
     },
     removeData(id) {
       this.$emit("removeData", id);
+    },
+    updateData(id) {
+      this.$emit("updateData", id);
     }
   }
 };

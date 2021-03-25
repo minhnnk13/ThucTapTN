@@ -44,6 +44,14 @@ const routes = [
           import(/* webpackChunkName: "News" */ "../views/News.vue")
       },
       {
+        path: "/news/:id",
+        name: "NewsDetail",
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "NewsDetail" */ "../views/NewsDetail.vue")
+      },
+
+      {
         path: "/products/:id",
         name: "ProductDetail",
         props: true,
@@ -63,6 +71,12 @@ const routes = [
         name: "Pay",
         component: () =>
           import(/* webpackChunkName: "Pay" */ "../views/Pay.vue")
+      },
+      {
+        path: "/pay-detail",
+        name: "PayDetail",
+        component: () =>
+          import(/* webpackChunkName: "PayDetail" */ "../views/PayDetail.vue")
       }
     ]
   },
@@ -130,6 +144,12 @@ const routes = [
           import(
             /* webpackChunkName: "Settings" */ "../admin/views/pages/Settings"
           )
+      },
+      {
+        path: "orders",
+        name: "Orders",
+        component: () =>
+          import(/* webpackChunkName: "Orders" */ "../admin/views/pages/Orders")
       }
     ]
   },

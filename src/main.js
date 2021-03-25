@@ -9,6 +9,7 @@ import CoreuiVue from "@coreui/vue";
 import { iconsSet as icons } from "./assets/icons/icons.js";
 import VuejsPaginate from "vuejs-paginate";
 import { Tab, Tabs } from "vue-tabs-component";
+export const eventBus = new Vue();
 Vue.component("paginate", VuejsPaginate);
 Vue.component("tabs", Tabs);
 Vue.component("tab", Tab);

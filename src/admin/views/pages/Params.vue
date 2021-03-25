@@ -1,6 +1,15 @@
 <template>
   <div>
-    <the-grid @addData="openDialog" />
+    <the-grid
+      @addData="openDialog"
+      :fields="fields"
+      :items="params"
+      :id="'paramId'"
+      :name="'paramName'"
+      :createDate="false"
+      @removeData="removeParam"
+      @updateData="updateParam"
+    />
     <div class="dialog" v-if="isDialog">
       <h1 class="title">Tham số</h1>
       <CRow>

@@ -24,7 +24,7 @@
               :key="item.productId"
             >
               <div class="col-md-6 product">
-                <div class="remove">
+                <div class="remove" @click="removeCart(item.productId)">
                   <i class="far fa-times-circle"></i>
                 </div>
                 <router-link to="">
@@ -45,16 +45,19 @@
                 </router-link>
               </div>
               <div class="col-md-2 price mr-0">
-                {{ item.productPrice }} <span> đ</span>
+                {{ formatMoney(item.productPrice) }} <span> đ</span>
               </div>
               <div class="col-md-2 amount">
                 <div class="count">
                   <div @click="decreCount(item)">-</div>
                   <input v-model="item.count" type="number" min="1" />
-                  <div @click="item.count += 1">+</div>
+                  <div @click="increCount(item)">+</div>
                 </div>
               </div>
-              <div class="col-md-2 total mr-0">50.752.000 <span>đ</span></div>
+              <div class="col-md-2 total mr-0">
+                {{ formatMoney(item.count * Number(item.productPrice)) }}
+                <span>đ</span>
+              </div>
             </div>
           </div>
           <router-link to="/products" class="back">
@@ -64,10 +67,10 @@
         <div class="col-md-5 amount-total">
           <div class="title">Tổng số lượng</div>
           <div class="total">
-            Tổng cộng <span>51.234.567 <span>đ</span></span>
+            Tổng cộng <span>{{ formatMoney(amount) }} <span>đ</span></span>
           </div>
           <div class="m-l-8">
-            <router-link to="/pay" class="btn btn--add w-100 "
+            <router-link to="/pay" class="btn btn--add w-100 btn--red "
               >Tiến hành thanh toán
             </router-link>
           </div>
@@ -78,52 +81,58 @@
 </template>
 
 <script>
+import { eventBus } from "../main";
 export default {
   data() {
     return {
-      cart: [
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        }
-      ]
+      cart: []
     };
   },
+  computed: {
+    amount() {
+      let amount = 0;
+      this.cart.forEach(
+        item => (amount += item.count * Number(item.productPrice))
+      );
+      return amount;
+    }
+  },
   methods: {
+    formatMoney(money) {
+      return new Intl.NumberFormat().format(money);
+    },
+    increCount(item) {
+      item.count += 1;
+      this.saveCart();
+    },
     decreCount(item) {
-      if (item.count > 0) {
+      if (item.count > 1) {
         item.count -= 1;
+      }
+      this.saveCart();
+    },
+    removeCart(id) {
+      let index = this.cart.findIndex(item => item.productId == id);
+      this.cart.splice(index, 1);
+      this.saveCart();
+      if (this.cart) {
+        eventBus.$emit("getCartTotal", this.cart.length);
+      }
+    },
+    change() {
+      console.log("runnnn");
+    },
+    saveCart() {
+      const parsed = JSON.stringify(this.cart);
+      localStorage.setItem("cart", parsed);
+    }
+  },
+  mounted() {
+    if (localStorage.getItem("cart")) {
+      try {
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+      } catch (error) {
+        localStorage.removeItem("cart");
       }
     }
   }

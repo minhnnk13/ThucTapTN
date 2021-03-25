@@ -16,6 +16,7 @@ export default {
     }
   },
   actions: {
+    //load danh mục sản phẩm
     loadData: ({ commit }) => {
       axios
         .get("http://localhost:8080/api/productcategorys")

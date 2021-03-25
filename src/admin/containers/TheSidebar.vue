@@ -72,10 +72,16 @@ export default {
               to: "/admin/news",
               icon: "cilGlobeAlt"
             },
+            // {
+            //   _name: "CSidebarNavItem",
+            //   name: "Tham số",
+            //   to: "/admin/params",
+            //   icon: "cilFile"
+            // },
             {
               _name: "CSidebarNavItem",
-              name: "Tham số",
-              to: "/admin/params",
+              name: "Đơn hàng",
+              to: "/admin/orders",
               icon: "cilFile"
             },
             {

@@ -5,7 +5,7 @@
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-4" v-for="item in news" :key="item.newsId">
-              <router-link to="" class="item">
+              <router-link :to="'news/' + item.newsId" class="item">
                 <div class="box-thumbnail">
                   <div class="thumbnail-lazy">
                     <img :src="require(`../assets/images/${item.newsImage}`)" />
@@ -23,9 +23,9 @@
                 </div>
                 <div class="created-date">
                   <span class="date">
-                    {{ item.newsDate }}
+                    {{ getDate(item.createdDate) }}
                   </span>
-                  <div class="month">Th{{ item.newsMonth }}</div>
+                  <div class="month">Th{{ getMonth(item.createdDate) }}</div>
                 </div>
               </router-link>
             </div>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import RelatedNews from "../components/related/RelatedNews.vue";
 import RelatedProducts from "../components/related/RelatedProducts.vue";
 export default {
@@ -61,90 +62,104 @@ export default {
       prevIcon: `<i
             class="fas fa-chevron-left"
           ></i
-          >`,
-      news: [
-        {
-          newsId: 1,
-          newsTitle: "Bảo hành hấp dẫn",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Thông tin bảo hành trong vòng 2 năm"
-        },
-        {
-          newsId: 2,
-          newsTitle: "Hướng dẫn mua hàng trực tuyến",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Hướng dẫn mua hàng trực tuyến qua website www.manhnhatpc.com"
-        },
-        {
-          newsId: 3,
-          newsTitle: "Hướng dẫn mua trả góp",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Hướng dẫn mua trả góp tại Mạnh Nhất Computer"
-        },
-        {
-          newsId: 4,
-          newsTitle: "Phương thức thanhh toán",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Phương thức thanh toán onl hoặc mua trực tiếp"
-        },
-        {
-          newsId: 5,
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Giao hàng tận nha cho khách hàng"
-        },
-        {
-          newsId: 6,
-          newsTitle: "Tặng quà khủng mua 1 tặng 5",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Mạnh Nhất Computer có khuyến mãi cực sốc mua 1 tặng 5"
-        },
-        {
-          newsId: 7,
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Giao hàng tận nha cho khách hàng"
-        },
-        {
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Giao hàng tận nha cho khách hàng"
-        },
-        {
-          newsId: 9,
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Giao hàng tận nha cho khách hàng"
-        }
-      ]
+          >`
+      // news: [
+      //   {
+      //     newsId: 1,
+      //     newsTitle: "Bảo hành hấp dẫn",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Thông tin bảo hành trong vòng 2 năm"
+      //   },
+      //   {
+      //     newsId: 2,
+      //     newsTitle: "Hướng dẫn mua hàng trực tuyến",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription:
+      //       "Hướng dẫn mua hàng trực tuyến qua website www.manhnhatpc.com"
+      //   },
+      //   {
+      //     newsId: 3,
+      //     newsTitle: "Hướng dẫn mua trả góp",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Hướng dẫn mua trả góp tại Mạnh Nhất Computer"
+      //   },
+      //   {
+      //     newsId: 4,
+      //     newsTitle: "Phương thức thanhh toán",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Phương thức thanh toán onl hoặc mua trực tiếp"
+      //   },
+      //   {
+      //     newsId: 5,
+      //     newsTitle: "Chính sách giao hàng",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Giao hàng tận nha cho khách hàng"
+      //   },
+      //   {
+      //     newsId: 6,
+      //     newsTitle: "Tặng quà khủng mua 1 tặng 5",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription:
+      //       "Mạnh Nhất Computer có khuyến mãi cực sốc mua 1 tặng 5"
+      //   },
+      //   {
+      //     newsId: 7,
+      //     newsTitle: "Chính sách giao hàng",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Giao hàng tận nha cho khách hàng"
+      //   },
+      //   {
+      //     newsTitle: "Chính sách giao hàng",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Giao hàng tận nha cho khách hàng"
+      //   },
+      //   {
+      //     newsId: 9,
+      //     newsTitle: "Chính sách giao hàng",
+      //     newsImage: "news.jpg",
+      //     newsDate: "30",
+      //     newsMonth: "12",
+      //     newsDescription: "Giao hàng tận nha cho khách hàng"
+      //   }
+      // ]
     };
+  },
+  computed: {
+    ...mapGetters("news", { news: "getNews" })
+    // getDate(createdDate) {
+
+    //   return createdDate;
+    // }
+  },
+  methods: {
+    ...mapActions("news", { loadData: "loadData" }),
+    getDate(createdDate) {
+      var date = new Date(createdDate).getDate();
+      return date;
+    },
+    getMonth(createdDate) {
+      var date = new Date(createdDate).getMonth() + 1;
+      return date;
+    }
+  },
+  created() {
+    this.loadData();
   }
 };
 </script>

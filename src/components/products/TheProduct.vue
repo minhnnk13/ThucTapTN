@@ -3,7 +3,10 @@
     <router-link :to="'products/' + product.productId">
       <div class="box-thumbnail">
         <div class="thumbnail-lazy">
-          <img :src="require(`../../assets/images/${product.productImage}`)" />
+          <img
+            v-if="product.productImage"
+            :src="require(`../../assets/images/${product.productImage}`)"
+          />
         </div>
       </div>
       <div class="product__name">

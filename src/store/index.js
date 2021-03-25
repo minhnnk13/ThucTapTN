@@ -6,6 +6,8 @@ import params from "./modules/params";
 import products from "./modules/products";
 import categories from "./modules/categories";
 import banners from "./modules/banners";
+import cart from "./modules/cart";
+import orders from "./modules/orders";
 
 Vue.use(Vuex);
 
@@ -34,6 +36,8 @@ export default new Vuex.Store({
     products,
     accounts,
     categories,
-    banners
+    banners,
+    cart,
+    orders
   }
 });

@@ -10,6 +10,7 @@
                   <div class="box-thumbnail">
                     <div class="thumbnail-lazy">
                       <img
+                        v-if="product.productImage"
                         :src="
                           require(`../assets/images/${product.productImage}`)
                         "
@@ -25,10 +26,10 @@
                 </div>
                 <div class="product__price">
                   <div class="old-price">
-                    {{ product.productOldPrice }} <span>đ</span>
+                    {{ formatMoney(product.productOldPrice) }} <span>đ</span>
                   </div>
                   <div class="price">
-                    {{ product.productPrice }} <span>đ</span>
+                    {{ formatMoney(product.productPrice) }} <span>đ</span>
                   </div>
                 </div>
                 <div
@@ -49,10 +50,14 @@
                 <div class="amount">
                   <div class="count">
                     <div @click="decreCount">-</div>
-                    <input v-model="count" type="number" min="1" />
-                    <div @click="count += 1">+</div>
+                    <input
+                      v-model="currentProduct.count"
+                      type="number"
+                      min="1"
+                    />
+                    <div @click="currentProduct.count += 1">+</div>
                   </div>
-                  <div class="btn btn--add btn--red">
+                  <div class="btn btn--add btn--red" @click="addToCard">
                     Thêm vào giỏ hàng
                   </div>
                 </div>
@@ -94,87 +99,140 @@
               </div>
               <div class="content">
                 <span class="count">{{ item.count }} x </span>
-                {{ item.productPrice }}
+                {{ formatMoney(item.productPrice) }}
                 <span style="text-decoration: underline">đ</span>
               </div>
             </div>
           </router-link>
-          <div class="remove">
+          <div class="remove" @click="removeCart(item.productId)">
             <i class="far fa-times-circle"></i>
           </div>
         </div>
       </div>
       <div class="total">
-        Tổng cộng: <span class="money">76.123.123 </span> <span>đ</span>
+        Tổng cộng: <span class="money">{{ formatMoney(amount) }} </span>
+        <span>đ</span>
       </div>
-      <div class="close">
+      <div class="close" @click="closeCart">
         <i class="fas fa-times"></i>
       </div>
       <div class="m-b-10">
-        <router-link to="" class="btn btn--add w-100">Xem giỏ hàng</router-link>
+        <router-link to="/cart" class="btn btn--add w-100 btn--red"
+          >Xem giỏ hàng</router-link
+        >
       </div>
       <div>
-        <router-link to="" class="btn btn--add w-100">Thanh toán</router-link>
+        <router-link to="/pay" class="btn btn--add w-100 btn--red"
+          >Thanh toán</router-link
+        >
       </div>
     </div>
+    <div class="overlay" v-if="isCart"></div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import RelatedProducts from "../components/related/RelatedProducts.vue";
+import { eventBus } from "../main";
 export default {
   components: { RelatedProducts },
   props: ["id"],
   data() {
     return {
       isCart: false,
-      cart: [
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
-        }
-      ],
-      count: 1
+      cart: [],
+      currentProduct: {
+        productId: "",
+        productImage: "",
+        productName: "",
+        count: 1,
+        productPrice: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("products", { product: "getProduct" })
+    ...mapGetters("products", { product: "getProduct" }),
+    // ...mapGetters("cart", { cart: "getCart" })
+    amount() {
+      let amount = 0;
+      this.cart.forEach(
+        item => (amount += item.count * Number(item.productPrice))
+      );
+      return amount;
+    }
+  },
+  watch: {
+    product() {
+      this.currentProduct.productImage = this.product.productImage;
+      this.currentProduct.productName = this.product.productName;
+      this.currentProduct.productPrice = this.product.productPrice;
+      this.currentProduct.productId = this.product.productId;
+    }
   },
   methods: {
     decreCount() {
-      if (this.count > 0) {
-        this.count -= 1;
+      if (this.currentProduct.count > 1) {
+        this.currentProduct.count -= 1;
       }
     },
-    ...mapActions("products", { loadData: "loadDataById" })
+    ...mapActions("products", { loadData: "loadDataById" }),
+    // ...mapActions("cart", {
+    //   addData: "addToCart",
+    //   removeData: "removeCart",
+    //   loadCart: "loadCart"
+    // }),
+    formatMoney(money) {
+      return new Intl.NumberFormat().format(money);
+    },
+    addToCard() {
+      // this.addData(this.currentProduct);
+      // this.currentCart.push(this.currentProduct);
+      let index = this.cart.findIndex(
+        item => item.productId == this.currentProduct.productId
+      );
+      if (index == -1) {
+        this.cart.push(this.currentProduct);
+      } else {
+        this.cart[index].count += 1;
+      }
+      this.saveCart();
+      this.openCart();
+      if (this.cart) {
+        eventBus.$emit("getCartTotal", this.cart.length);
+      }
+    },
+    removeCart(id) {
+      let index = this.cart.findIndex(item => item.productId == id);
+      this.cart.splice(index, 1);
+      this.saveCart();
+      if (this.cart) {
+        eventBus.$emit("getCartTotal", this.cart.length);
+      }
+    },
+    saveCart() {
+      const parsed = JSON.stringify(this.cart);
+      localStorage.setItem("cart", parsed);
+    },
+    openCart() {
+      this.isCart = true;
+    },
+    closeCart() {
+      this.isCart = false;
+    }
   },
   created() {
+    // this.loadCart();
     this.loadData(this.id);
+  },
+  mounted() {
+    if (localStorage.getItem("cart")) {
+      try {
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+      } catch (error) {
+        localStorage.removeItem("cart");
+      }
+    }
   }
 };
 </script>
@@ -291,7 +349,7 @@ export default {
     top: 0;
     height: 100vh;
 
-    z-index: 99;
+    z-index: 999;
     padding: 40px 20px;
     .title {
       text-align: center;
@@ -371,6 +429,9 @@ export default {
       font-size: 28px;
       cursor: pointer;
     }
+  }
+  .overlay {
+    z-index: 99;
   }
 }
 </style>

@@ -33,7 +33,7 @@
       </li>
     </ul>
     <div class="cart">
-      <router-link to="cart">
+      <router-link to="/cart">
         <i class="fas fa-shopping-cart"></i>
         <span>{{ total }}</span>
       </router-link>
@@ -43,20 +43,31 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { eventBus } from "../../main";
 export default {
   data() {
     return {
-      total: 2
+      total: 0
     };
   },
   computed: {
     ...mapGetters("categories", { categories: "getCategories" })
+    // total() {
+    //   let total = JSON.parse(localStorage.getItem("cart")).length;
+    //   return total;
+    // }
   },
   methods: {
     ...mapActions("categories", { loadData: "loadData" })
   },
   created() {
     this.loadData();
+    if (localStorage.getItem("cart")) {
+      this.total = JSON.parse(localStorage.getItem("cart")).length;
+    }
+    eventBus.$on("getCartTotal", total => {
+      this.total = total;
+    });
   }
 };
 </script>

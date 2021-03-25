@@ -6,19 +6,43 @@
           <div class="title">Thông tin thanh toán</div>
           <div class="input-row">
             <div class="input-field">
-              <base-input>Họ <span>*</span></base-input>
+              <base-input
+                :class="{ required: !fieldValidate.firstName.isValidate }"
+                v-model="order.firstName"
+                >Họ <span>*</span>
+                <span
+                  slot="tooltip"
+                  class="tooltip tooltip--input"
+                  v-if="!fieldValidate.firstName.isValidate"
+                >
+                  Dữ liệu không được để trống
+                </span></base-input
+              >
             </div>
             <div class="input-field">
-              <base-input>Tên <span>*</span></base-input>
+              <base-input
+                :class="{ required: !fieldValidate.lastName.isValidate }"
+                v-model="order.lastName"
+                >Tên <span>*</span>
+                <span
+                  slot="tooltip"
+                  class="tooltip tooltip--input"
+                  v-if="!fieldValidate.lastName.isValidate"
+                >
+                  Dữ liệu không được để trống
+                </span></base-input
+              >
             </div>
           </div>
           <div class="input-row">
-            <base-input>Tên công ty (optional)</base-input>
+            <base-input v-model="order.companyName"
+              >Tên công ty (optional)</base-input
+            >
           </div>
           <div class="input-row">
             <div class="w-100">
               <label>Country / Region *</label>
-              <select id="country" name="country">
+              <select id="country" name="country" v-model="order.country">
                 <option value="Afganistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
@@ -274,7 +298,7 @@
                 <option value="Vanuatu">Vanuatu</option>
                 <option value="Vatican City State">Vatican City State</option>
                 <option value="Venezuela">Venezuela</option>
-                <option value="Vietnam">Vietnam</option>
+                <option value="Vietnam" selected>Vietnam</option>
                 <option value="Virgin Islands (Brit)"
                   >Virgin Islands (Brit)</option
                 >
@@ -292,27 +316,75 @@
           </div>
           <div class="input-row">
             <div class="input-field">
-              <base-input placeholder="Số nhà và tên đường"
-                >Địa chỉ <span>*</span></base-input
+              <base-input
+                v-model="order.address"
+                placeholder="Số nhà và tên đường"
+                :class="{ required: !fieldValidate.address.isValidate }"
+                >Địa chỉ <span>*</span
+                ><span
+                  slot="tooltip"
+                  class="tooltip tooltip--input"
+                  v-if="!fieldValidate.address.isValidate"
+                >
+                  Dữ liệu không được để trống
+                </span></base-input
               >
             </div>
           </div>
           <div class="input-row">
-            <base-input>Mã bưu điện (optional)</base-input>
+            <base-input v-model="order.postOfficeCode"
+              >Mã bưu điện (optional)</base-input
+            >
           </div>
           <div class="input-row">
-            <base-input>Tỉnh / Thành phố <span>*</span></base-input>
+            <base-input
+              :class="{ required: !fieldValidate.city.isValidate }"
+              v-model="order.city"
+              >Tỉnh / Thành phố <span>*</span
+              ><span
+                slot="tooltip"
+                class="tooltip tooltip--input"
+                v-if="!fieldValidate.city.isValidate"
+              >
+                Dữ liệu không được để trống
+              </span></base-input
+            >
           </div>
           <div class="input-row">
-            <base-input>Số điện thoại <span>*</span></base-input>
+            <base-input
+              type="number"
+              v-model="order.phoneNumber"
+              :class="{ required: !fieldValidate.phoneNumber.isValidate }"
+              >Số điện thoại <span>*</span
+              ><span
+                slot="tooltip"
+                class="tooltip tooltip--input"
+                v-if="!fieldValidate.phoneNumber.isValidate"
+              >
+                Dữ liệu không được để trống
+              </span></base-input
+            >
           </div>
           <div class="input-row">
-            <base-input>Địa chỉ email <span>*</span></base-input>
+            <base-input
+              type="email"
+              v-model="order.email"
+              :class="{ required: !fieldValidate.email.isValidate }"
+              >Địa chỉ email <span>*</span
+              ><span
+                slot="tooltip"
+                class="tooltip tooltip--input"
+                v-if="!fieldValidate.email.isValidate"
+              >
+                Dữ liệu không được để trống
+              </span></base-input
+            >
           </div>
           <div class="additional">
             <div class="title">Thông tin bổ sung</div>
             <label>Ghi chú đơn hàng (optional)</label>
             <textarea
+              v-model="order.note"
               placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."
             ></textarea>
           </div>
@@ -337,18 +409,22 @@
             <div class="col-md-9">
               {{ item.productName }} <span>x {{ item.count }}</span>
             </div>
-            <div class="col-md-3 t-r">50.752.000 <span>đ</span></div>
+            <div class="col-md-3 t-r">
+              {{ formatMoney(item.productPrice * item.count) }}<span>đ</span>
+            </div>
           </div>
           <div class="row total">
             <div class="col-md-9">
               Tổng cộng
             </div>
-            <div class="col-md-3 t-r">54.916.000 <span>đ</span></div>
+            <div class="col-md-3 t-r">
+              {{ formatMoney(amount) }} <span>đ</span>
+            </div>
           </div>
           <div class="note">
             Trả tiền mặt khi nhận hàng (COD)
           </div>
-          <button class="btn btn--add">
+          <button class="btn btn--add btn--red" @click="addOrder">
             ĐẶT HÀNG
           </button>
         </div>
@@ -358,49 +434,159 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import BaseInput from "../components/control/BaseInput.vue";
 export default {
   components: { BaseInput },
   data() {
     return {
-      cart: [
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
+      cart: [],
+      fieldValidate: {
+        firstName: {
+          isValidate: true,
+          message: "Dữ liệu không được để trống"
         },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
+        lastName: {
+          isValidate: true,
+          message: "Dữ liệu không được để trống"
         },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
+        address: {
+          isValidate: true,
+          message: "Dữ liệu không được để trống"
         },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
+        city: {
+          isValidate: true,
+          message: "Dữ liệu không được để trống"
         },
-        {
-          productImage: "product.jpg",
-          productName:
-            "Bộ PC Gaming B360/ i3 9100F/RAM 8GB/ GTX 1050-2G/Màn Hình 24inch Cong Full Viền",
-          count: 4,
-          productPrice: 14000000
+        phoneNumber: {
+          isValidate: true,
+          message: "Dữ liệu không được để trống"
+        },
+        email: {
+          isValidate: true,
+          message: "Dữ liệu không được để trống"
         }
-      ]
+      },
+      order: {
+        accountId: 1,
+        firstName: "",
+        lastName: "",
+        companyName: "",
+        country: "Vietnam",
+        address: "",
+        postOfficeCode: "",
+        city: "",
+        phoneNumber: "",
+        email: "",
+        orderStatus: true,
+        note: "",
+        orderProducts: "",
+        createdDate: ""
+      }
     };
+  },
+  computed: {
+    amount() {
+      let amount = 0;
+      this.cart.forEach(
+        item => (amount += item.count * Number(item.productPrice))
+      );
+      return amount;
+    },
+    getCurrentDate() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0");
+      var yyyy = today.getFullYear();
+      today = yyyy + "-" + mm + "-" + dd;
+      return today;
+    }
+  },
+  methods: {
+    ...mapActions("orders", { addData: "addOrder" }),
+    formatMoney(money) {
+      return new Intl.NumberFormat().format(money);
+    },
+    getOrderProduct() {
+      this.cart.forEach((item, index) => {
+        if (index == 0) {
+          this.order.orderProducts += item.productId;
+        } else {
+          for (let i = 0; i < item.count; i++) {
+            this.order.orderProducts += "," + item.productId;
+          }
+        }
+      });
+    },
+    validate() {
+      let status = false;
+      if (
+        !this.order.firstName ||
+        !this.order.lastName ||
+        !this.order.address ||
+        !this.order.city ||
+        !this.order.phoneNumber ||
+        !this.order.email
+      ) {
+        if (!this.order.firstName) {
+          this.fieldValidate.firstName.isValidate = false;
+        } else {
+          this.fieldValidate.firstName.isValidate = true;
+        }
+        if (!this.order.lastName) {
+          this.fieldValidate.lastName.isValidate = false;
+        } else {
+          this.fieldValidate.lastName.isValidate = true;
+        }
+        if (!this.order.city) {
+          this.fieldValidate.city.isValidate = false;
+        } else {
+          this.fieldValidate.city.isValidate = true;
+        }
+        if (!this.order.address) {
+          this.fieldValidate.address.isValidate = false;
+        } else {
+          this.fieldValidate.address.isValidate = true;
+        }
+        if (!this.order.phoneNumber) {
+          this.fieldValidate.phoneNumber.isValidate = false;
+        } else {
+          this.fieldValidate.phoneNumber.isValidate = true;
+        }
+        if (!this.order.email) {
+          this.fieldValidate.email.isValidate = false;
+        } else {
+          this.fieldValidate.email.isValidate = true;
+        }
+      } else {
+        this.fieldValidate.firstName.isValidate = true;
+        this.fieldValidate.lastName.isValidate = true;
+        this.fieldValidate.address.isValidate = true;
+        this.fieldValidate.city.isValidate = true;
+        this.fieldValidate.phoneNumber.isValidate = true;
+        this.fieldValidate.email.isValidate = true;
+        status = true;
+      }
+      return status;
+    },
+    async addOrder() {
+      if (this.validate()) {
+        await this.addData(this.order);
+        localStorage.removeItem("cart");
+        this.$router.push({ name: "PayDetail" });
+      }
+    }
+  },
+  async mounted() {
+    if (localStorage.getItem("cart")) {
+      try {
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+      } catch (error) {
+        localStorage.removeItem("cart");
+      }
+    }
+    this.order.createdDate = this.getCurrentDate;
+    this.getOrderProduct();
   }
 };
 </script>

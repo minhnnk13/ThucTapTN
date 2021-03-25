@@ -9,6 +9,7 @@
       @addData="openDialog"
       :imageField="'productImage'"
       @removeData="removeProduct"
+      @updateData="updateProduct"
     />
 
     <div class="dialog" v-if="isDialog">
@@ -98,7 +99,7 @@
         <CCol sm="6">
           <CButtonToolbar>
             <CButton color="danger" @click="closeDialog">Đóng</CButton>
-            <CButton color="primary" @click="addData">Lưu</CButton>
+            <CButton color="primary" @click="saveData">Lưu</CButton>
           </CButtonToolbar>
         </CCol>
       </CRow>
@@ -122,7 +123,7 @@ export default {
         {
           key: "productName",
           _style: "min-width:200px",
-          label: "Danh mục sản phẩm"
+          label: "Tên sản phẩm"
         },
         {
           key: "productOldPrice",
@@ -140,9 +141,9 @@ export default {
           label: "Giảm giá"
         },
         {
-          key: "productDescription",
+          key: "productStatus",
           _style: "min-width:200px",
-          label: "Mô tả sản phẩm"
+          label: "Trạng thái"
         },
         {
           key: "show_details",
@@ -165,11 +166,15 @@ export default {
         createdDate: "",
         productStatus: true,
         productCategoryId: this.id
-      }
+      },
+      isEditting: false
     };
   },
   computed: {
-    ...mapGetters("products", { products: "getProducts" }),
+    ...mapGetters("products", {
+      products: "getProducts",
+      product: "getProduct"
+    }),
     getCurrentDate() {
       var today = new Date();
       var dd = String(today.getDate()).padStart(2, "0");
@@ -201,30 +206,16 @@ export default {
     ...mapActions("products", {
       addProduct: "addProduct",
       loadProductsByCategory: "loadProductsByCategory",
-      removeData: "removeProduct"
+      removeData: "removeProduct",
+      editProduct: "editProduct",
+      loadProductById: "loadDataById"
     }),
     openDialog() {
       this.isDialog = true;
     },
     closeDialog() {
       this.isDialog = false;
-    },
-    choseImage(event) {
-      this.currentProduct.productImage = event.target.files[0].name;
-    },
-    validate() {
-      let status = false;
-      if (
-        !this.currentProduct.productName ||
-        !this.currentProduct.productImage
-      ) {
-        status = false;
-      }
-      return status;
-    },
-    async addData() {
-      this.convertToNumber();
-      await this.addProduct(this.currentProduct);
+      this.isEditting = false;
       this.currentProduct = {
         productName: "",
         productImage: "",
@@ -239,6 +230,30 @@ export default {
         productStatus: true,
         productCategoryId: this.id
       };
+    },
+    choseImage(event) {
+      this.currentProduct.productImage = event.target.files[0].name;
+    },
+    validate() {
+      let status = false;
+      if (
+        !this.currentProduct.productName ||
+        !this.currentProduct.productImage
+      ) {
+        status = false;
+      }
+      return status;
+    },
+    async saveData() {
+      this.convertToNumber();
+
+      if (this.isEditting) {
+        await this.editProduct(this.currentProduct);
+        console.log(this.isEditting);
+      } else {
+        await this.addProduct(this.currentProduct);
+      }
+
       this.closeDialog();
       this.currentProduct.createdDate = this.getCurrentDate;
     },
@@ -247,6 +262,12 @@ export default {
       if (r) {
         this.removeData(id);
       }
+    },
+    async updateProduct(id) {
+      await this.loadProductById(id);
+      this.isEditting = true;
+      this.currentProduct = this.product;
+      this.openDialog();
     }
   }
 };
