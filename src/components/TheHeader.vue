@@ -3,7 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <img height="130px" src="@/assets/images/logo1.png" alt="" />
+          <router-link to="/"
+            ><img height="130px" src="@/assets/images/logo1.png" alt=""
+          /></router-link>
         </div>
         <div class="col-md-6 f-center p-0 ">
           <div class="search ">
@@ -47,6 +49,8 @@ export default {
     display: flex;
     width: 100%;
     .btn-search {
+      position: relative;
+      top: 8px;
       width: 39px;
       height: 39px;
       background-color: $color-red;

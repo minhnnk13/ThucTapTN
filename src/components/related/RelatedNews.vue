@@ -30,99 +30,23 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["title"],
   computed: {
+    ...mapGetters("news", { news: "getNews" }),
     listNews5() {
       return this.news.slice(0, 5);
     }
   },
   data() {
-    return {
-      news: [
-        {
-          newsId: 1,
-          newsTitle: "Bảo hành",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Bảo hành 2 năm kể từ ngày bán"
-        },
-        {
-          newsId: 2,
-          newsTitle: "Giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Giao hàng tận nơi, hàng trao tận tay"
-        },
-        {
-          newsId: 3,
-          newsTitle: "Mua 1 tặng 5",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Siêu ưu đãi mua 1 tặng 5"
-        },
-        {
-          newsId: 4,
-          newsTitle: "Thanh toán nhanh chóng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Thanh toán online hoặc thanh toans trực tiếp"
-        },
-        {
-          newsId: 5,
-          newsTitle: "Thanh toán nhanh chóng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Thanh toán online hoặc thanh toans trực tiếp"
-        },
-        {
-          newsId: 6,
-          newsTitle: "Thanh toán nhanh chóng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Thanh toán online hoặc thanh toans trực tiếp"
-        },
-        {
-          newsId: 7,
-          newsTitle: "Mua 1 tặng 5",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Siêu ưu đãi mua 1 tặng 5"
-        },
-        {
-          newsId: 8,
-          newsTitle: "Mua 1 tặng 5",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Siêu ưu đãi mua 1 tặng 5"
-        },
-        {
-          newsId: 9,
-          newsTitle: "Mua 1 tặng 5",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Siêu ưu đãi mua 1 tặng 5"
-        }
-      ]
-    };
+    return {};
+  },
+  methods: {
+    ...mapActions("news", { loadData: "loadData" })
+  },
+  created() {
+    this.loadData();
   }
 };
 </script>

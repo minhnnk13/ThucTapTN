@@ -31,11 +31,14 @@
             </div>
           </div>
           <paginate
-            :pageCount="1"
+            :pageCount="pageCount"
+            :pageRange="pageRange"
+            :margin-pages="2"
             :container-class="'pagination'"
             :next-text="nextIcon"
             :prev-text="prevIcon"
             :page-class="'page-item'"
+            :click-handler="clickCallback"
           />
         </div>
         <div class="col-md-3">
@@ -48,7 +51,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import RelatedNews from "../components/related/RelatedNews.vue";
 import RelatedProducts from "../components/related/RelatedProducts.vue";
 export default {
@@ -62,86 +65,96 @@ export default {
       prevIcon: `<i
             class="fas fa-chevron-left"
           ></i
-          >`
-      // news: [
-      //   {
-      //     newsId: 1,
-      //     newsTitle: "Bảo hành hấp dẫn",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Thông tin bảo hành trong vòng 2 năm"
-      //   },
-      //   {
-      //     newsId: 2,
-      //     newsTitle: "Hướng dẫn mua hàng trực tuyến",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription:
-      //       "Hướng dẫn mua hàng trực tuyến qua website www.manhnhatpc.com"
-      //   },
-      //   {
-      //     newsId: 3,
-      //     newsTitle: "Hướng dẫn mua trả góp",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Hướng dẫn mua trả góp tại Mạnh Nhất Computer"
-      //   },
-      //   {
-      //     newsId: 4,
-      //     newsTitle: "Phương thức thanhh toán",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Phương thức thanh toán onl hoặc mua trực tiếp"
-      //   },
-      //   {
-      //     newsId: 5,
-      //     newsTitle: "Chính sách giao hàng",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Giao hàng tận nha cho khách hàng"
-      //   },
-      //   {
-      //     newsId: 6,
-      //     newsTitle: "Tặng quà khủng mua 1 tặng 5",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription:
-      //       "Mạnh Nhất Computer có khuyến mãi cực sốc mua 1 tặng 5"
-      //   },
-      //   {
-      //     newsId: 7,
-      //     newsTitle: "Chính sách giao hàng",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Giao hàng tận nha cho khách hàng"
-      //   },
-      //   {
-      //     newsTitle: "Chính sách giao hàng",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Giao hàng tận nha cho khách hàng"
-      //   },
-      //   {
-      //     newsId: 9,
-      //     newsTitle: "Chính sách giao hàng",
-      //     newsImage: "news.jpg",
-      //     newsDate: "30",
-      //     newsMonth: "12",
-      //     newsDescription: "Giao hàng tận nha cho khách hàng"
-      //   }
-      // ]
+          >`,
+      pageRange: 3,
+      news: [
+        {
+          newsId: 1,
+          newsTitle: "Bảo hành hấp dẫn",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Thông tin bảo hành trong vòng 2 năm"
+        },
+        {
+          newsId: 2,
+          newsTitle: "Hướng dẫn mua hàng trực tuyến",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription:
+            "Hướng dẫn mua hàng trực tuyến qua website www.manhnhatpc.com"
+        },
+        {
+          newsId: 3,
+          newsTitle: "Hướng dẫn mua trả góp",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Hướng dẫn mua trả góp tại Mạnh Nhất Computer"
+        },
+        {
+          newsId: 4,
+          newsTitle: "Phương thức thanhh toán",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Phương thức thanh toán onl hoặc mua trực tiếp"
+        },
+        {
+          newsId: 5,
+          newsTitle: "Chính sách giao hàng",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Giao hàng tận nha cho khách hàng"
+        },
+        {
+          newsId: 6,
+          newsTitle: "Tặng quà khủng mua 1 tặng 5",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription:
+            "Mạnh Nhất Computer có khuyến mãi cực sốc mua 1 tặng 5"
+        },
+        {
+          newsId: 7,
+          newsTitle: "Chính sách giao hàng",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Giao hàng tận nha cho khách hàng"
+        },
+        {
+          newsTitle: "Chính sách giao hàng",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Giao hàng tận nha cho khách hàng"
+        },
+        {
+          newsId: 9,
+          newsTitle: "Chính sách giao hàng",
+          newsImage: "news.jpg",
+          newsDate: "30",
+          newsMonth: "12",
+          newsDescription: "Giao hàng tận nha cho khách hàng"
+        }
+      ]
     };
   },
   computed: {
-    ...mapGetters("news", { news: "getNews" })
+    // ...mapGetters("news", { news: "getNews" }),
+
+    pageCount() {
+      let pageCount;
+
+      this.news.length % this.pageRange == 0
+        ? (pageCount = this.news.length / this.pageRange)
+        : (pageCount = Math.floor(this.news.length / this.pageRange) + 1);
+      return pageCount;
+    }
     // getDate(createdDate) {
 
     //   return createdDate;
@@ -156,6 +169,17 @@ export default {
     getMonth(createdDate) {
       var date = new Date(createdDate).getMonth() + 1;
       return date;
+    },
+
+    clickCallback(pageNum) {
+      console.log(pageNum);
+      let arr = [];
+
+      let arrEnd = pageNum * this.pageRange - 1;
+
+      arr = this.news.slice(arrEnd - this.pageRange - 1, arrEnd + 1);
+      console.log(arr);
+      return arr;
     }
   },
   created() {

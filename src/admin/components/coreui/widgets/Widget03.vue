@@ -1,10 +1,10 @@
 <template>
-  <div class={classes}>
-    <div class={classCardHeader}>
-      <i class={icon}></i>
+  <div class="{classes}">
+    <div class="{classCardHeader}">
+      <i class="{icon}"></i>
       {children}
     </div>
-    <div class={classCardBody}>
+    <div class="{classCardBody}">
       <div>
         <div class="text-value">{vals[1]}</div>
         <div class="text-uppercase text-muted small">{keys[1]}</div>
@@ -19,13 +19,12 @@
 
 <script>
 export default {
-  name: 'Widget03',
+  name: "Widget03",
   props: {
     value: {
       type: Boolean,
       default: true
     }
   }
-}
+};
 </script>
-

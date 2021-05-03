@@ -17,11 +17,14 @@
             </div>
           </div>
           <paginate
-            :pageCount="1"
+            v-model="products"
+            :page-count="2"
+            :page-range="3"
             :container-class="'pagination'"
             :next-text="nextIcon"
             :prev-text="prevIcon"
             :page-class="'page-item'"
+            :click-handler="clickCallback"
           />
         </div>
       </div>

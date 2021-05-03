@@ -7,7 +7,7 @@
             <div class="infor">
               <div class="content">
                 <div class="logo">
-                  <img width="150px" src="../assets/images/logo.png" alt="" />
+                  <img width="150px" src="../assets/images/logo1.png" alt="" />
                 </div>
                 <ul>
                   <li>

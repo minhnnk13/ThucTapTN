@@ -26,28 +26,106 @@
         <router-link to="/news">Tin tức</router-link>
       </li>
       <li>
-        <router-link to="đâs">Video</router-link>
+        <router-link to="/">Video</router-link>
       </li>
       <li>
-        <router-link to="đâs">Liên hệ</router-link>
+        <router-link to="/">Liên hệ</router-link>
       </li>
     </ul>
+    <div class="user" @click="isOpenDialog = true">
+      <i class="fas fa-user"></i>
+      <div class="login">
+        Đăng ký <br />
+        Đăng nhập
+      </div>
+    </div>
     <div class="cart">
       <router-link to="/cart">
         <i class="fas fa-shopping-cart"></i>
         <span>{{ total }}</span>
       </router-link>
     </div>
+    <Dialog :visible.sync="isOpenDialog" width="30%">
+      <Tabs v-model="activeName" @tab-click="handleClick" slot="title">
+        <tab-pane label="Đăng nhập" name="first">
+          <base-input>
+            Số điện thoại
+          </base-input>
+
+          <base-input>
+            Mật khẩu
+          </base-input>
+
+          <base-button class="btn btn--red w-100">
+            Đăng nhập
+          </base-button>
+        </tab-pane>
+        <tab-pane label="Đăng ký" name="second">
+          <base-input>
+            Họ
+          </base-input>
+
+          <base-input>
+            Tên
+          </base-input>
+
+          <base-input>
+            Số điện thoại
+          </base-input>
+
+          <base-input>
+            Địa chỉ Email
+          </base-input>
+
+          <base-input>
+            Tỉnh / Thành phố
+          </base-input>
+
+          <base-input>
+            Địa chỉ
+          </base-input>
+
+          <template>
+            <label class="lblGender">Giới tính</label>
+
+            <Radio v-model="gender" :label="1">Nam</Radio>
+            <Radio v-model="gender" :label="2">Nữ</Radio>
+          </template>
+          <base-button class="btn btn--red w-100">
+            Đăng ký
+          </base-button>
+        </tab-pane>
+      </Tabs>
+    </Dialog>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { eventBus } from "../../main";
+import { Dialog, Tabs, TabPane, Radio } from "element-ui";
+import BaseInput from "../control/BaseInput.vue";
+import BaseButton from "../control/BaseButton.vue";
+
 export default {
+  components: {
+    Dialog,
+    Tabs,
+    TabPane,
+    BaseInput,
+    BaseButton,
+    Radio
+  },
+
   data() {
     return {
-      total: 0
+      total: 0,
+
+      isOpenDialog: false,
+
+      activeName: "first",
+
+      gender: ""
     };
   },
   computed: {
@@ -128,13 +206,34 @@ export default {
     }
   }
 }
+
+.user {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  i {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(145, 145, 145);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: $color-red;
+    background-color: #fff;
+    margin-right: 10px;
+  }
+}
+
 .cart {
   a {
     font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 100px;
+    margin-right: 50px;
     border: 1px solid rgb(145, 145, 145);
     width: 50px;
     height: 50px;
@@ -156,6 +255,16 @@ export default {
       text-align: center;
       line-height: 20px;
     }
+  }
+}
+
+.el-dialog__wrapper {
+  .btn--red {
+    margin: 12px 0 0 0;
+  }
+  .lblGender {
+    display: block;
+    font-family: Barlow-Bold;
   }
 }
 </style>
