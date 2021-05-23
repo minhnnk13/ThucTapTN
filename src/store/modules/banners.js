@@ -20,7 +20,7 @@ export default {
   actions: {
     loadData: ({ commit }) => {
       axios
-        .get("http://localhost:8080/api/banners")
+        .get("http://localhost:50052/api/banners")
         .then(res => commit("setBanners", res.data));
     },
     addBanner: ({ commit }, banner) => {

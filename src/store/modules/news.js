@@ -38,27 +38,27 @@ export default {
   actions: {
     loadData: ({ commit }) => {
       axios
-        .get("http://localhost:8080/api/newss")
+        .get("http://localhost:50052/api/newss")
         .then(res => commit("setNews", res.data));
     },
     loadDataById: async ({ commit }, id) => {
       await axios
-        .get("http://localhost:8080/api/newss/" + id)
+        .get("http://localhost:50052/api/newss/" + id)
         .then(res => commit("setNew", res.data));
     },
     addNews: ({ commit }, news) => {
       axios
-        .post("http://localhost:8080/api/newss", news)
+        .post("http://localhost:50052/api/newss", news)
         .then(res => commit("addNews", res.data));
     },
     editNews: ({ commit }, news) => {
       axios
-        .put("http://localhost:8080/api/newss/" + news.newsId, news)
+        .put("http://localhost:50052/api/newss/" + news.newsId, news)
         .then(commit("editNews", news));
     },
     removeNews: ({ commit }, id) => {
       axios
-        .delete("http://localhost:8080/api/newss/" + id)
+        .delete("http://localhost:50052/api/newss/" + id)
         .then(commit("removeNews", id));
     }
   }

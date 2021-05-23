@@ -6,7 +6,7 @@
         <i class="fas fa-bars"></i> Danh mục sản phẩm
         <ul v-category>
           <li v-for="category in categories" :key="category.productCategoryId">
-            <router-link to="">
+            <router-link :to="routerPath(category.productCategoryId)">
               {{ category.productCategoryName }}
             </router-link>
           </li>
@@ -51,14 +51,16 @@ export default {
     },
     ...mapGetters("categories", { categories: "getCategories" })
   },
-  mounted() {
-    console.log(this.currentRouteName);
-  },
+  mounted() {},
   data() {
     return {};
   },
   methods: {
-    ...mapActions("categories", { loadData: "loadData" })
+    ...mapActions("categories", { loadData: "loadData" }),
+
+    routerPath(id) {
+      return `/category/${id}`;
+    }
   },
   created() {
     this.loadData();

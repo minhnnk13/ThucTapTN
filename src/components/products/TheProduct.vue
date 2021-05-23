@@ -16,9 +16,11 @@
       </div>
       <div class="product__price">
         <div class="old-price">
-          {{ product.productOldPrice }} <span>đ</span>
+          {{ formatMoney(product.productOldPrice) }} <span>đ</span>
         </div>
-        <div class="price">{{ product.productPrice }} <span>đ</span></div>
+        <div class="price">
+          {{ formatMoney(product.productPrice) }} <span>đ</span>
+        </div>
       </div>
       <div class="product__discount">-{{ product.productDiscount }}%</div>
     </router-link>
@@ -27,7 +29,13 @@
 
 <script>
 export default {
-  props: ["product"]
+  props: ["product"],
+
+  methods: {
+    formatMoney(money) {
+      return new Intl.NumberFormat().format(money);
+    }
+  }
 };
 </script>
 

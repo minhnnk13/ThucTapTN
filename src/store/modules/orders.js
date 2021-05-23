@@ -9,12 +9,7 @@ export default {
   },
   getters: {
     getOrders: state => {
-      let orders = state.orders;
-      orders.forEach(item => {
-        item.orderProducts = item.orderProducts.trim();
-        item.phoneNumber = item.phoneNumber.trim();
-      });
-      return orders;
+      return state.orders;
     },
     getOrder: state => {
       return state.order;
@@ -40,7 +35,7 @@ export default {
   actions: {
     loadData: async ({ commit, state }) => {
       await axios
-        .get("http://localhost:8080/api/orders")
+        .get("http://localhost:50052/api/orders")
         .then(res => commit("setOrders", res.data));
       state.orders.forEach(item => {
         let orderProducts = item.orderProducts.split(",");
@@ -60,7 +55,7 @@ export default {
 
         orderProducts.forEach(productId => {
           axios
-            .get("http://localhost:8080/api/products/" + productId)
+            .get("http://localhost:50052/api/products/" + productId)
             .then(res => orderProductItems.push(res.data));
         });
         item.orderProductItems = orderProductItems;
@@ -68,12 +63,12 @@ export default {
     },
     loadDataById: ({ commit }, id) => {
       axios
-        .get("http://localhost:8080/api/orders/" + id)
+        .get("http://localhost:50052/api/orders/" + id)
         .then(res => commit("setOrder", res.data));
     },
     addOrder: ({ commit }, order) => {
       axios
-        .post("http://localhost:8080/api/orders", order)
+        .post("http://localhost:50052/api/orders", order)
         .then(
           res => (
             commit("addOrder", res.data),
@@ -85,9 +80,15 @@ export default {
       let orderProducts = order.orderProducts.split(",");
       orderProducts.forEach(item => {
         axios
-          .get("http://localhost:8080/api/products/" + item)
+          .get("http://localhost:50052/api/products/" + item)
           .then(res => commit("setOrderProducts", res.data));
       });
+    },
+
+    getCustomerByCustomerId: ({ commit }, customerId) => {
+      axios
+        .get("http://localhost:50052/api/orders/customerId/" + customerId)
+        .then(res => commit("setOrders", res.data));
     }
   }
 };

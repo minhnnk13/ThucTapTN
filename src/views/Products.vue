@@ -17,14 +17,12 @@
             </div>
           </div>
           <paginate
-            v-model="products"
             :page-count="2"
             :page-range="3"
             :container-class="'pagination'"
             :next-text="nextIcon"
             :prev-text="prevIcon"
             :page-class="'page-item'"
-            :click-handler="clickCallback"
           />
         </div>
       </div>
@@ -39,6 +37,7 @@ import RelatedProducts from "../components/related/RelatedProducts.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: { RelatedNews, RelatedProducts, TheProduct },
+  props: ["categoryId"],
   data() {
     return {
       nextIcon: `<i
@@ -55,10 +54,21 @@ export default {
     ...mapGetters("products", { products: "getProducts" })
   },
   methods: {
-    ...mapActions("products", { loadProducts: "loadData" })
+    ...mapActions("products", {
+      loadProducts: "loadData",
+      loadProductsByCategory: "loadProductsByCategory"
+    })
   },
   created() {
-    this.loadProducts();
+    this.categoryId
+      ? this.loadProductsByCategory(this.categoryId)
+      : this.loadProducts();
+  },
+
+  watch: {
+    categoryId() {
+      if (this.categoryId) this.loadProductsByCategory(this.categoryId);
+    }
   }
 };
 </script>

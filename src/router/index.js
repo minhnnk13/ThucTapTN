@@ -38,6 +38,15 @@ const routes = [
           import(/* webpackChunkName: "Products" */ "../views/Products.vue")
       },
       {
+        path: "/category/:categoryId",
+        name: "ProductCategory",
+        props: true,
+        component: () =>
+          import(
+            /* webpackChunkName: "ProductCategory" */ "../views/Products.vue"
+          )
+      },
+      {
         path: "/news",
         name: "News",
         component: () =>
@@ -77,6 +86,23 @@ const routes = [
         name: "PayDetail",
         component: () =>
           import(/* webpackChunkName: "PayDetail" */ "../views/PayDetail.vue")
+      },
+      {
+        path: "/order-management",
+        name: "OrderManagement",
+        component: () =>
+          import(
+            /* webpackChunkName: "OrderManagement" */ "../views/OrderManagement.vue"
+          )
+      },
+      {
+        path: "/order-detail/:orderId",
+        props: true,
+        name: "OrderDetail",
+        component: () =>
+          import(
+            /* webpackChunkName: "OrderDetail" */ "../views/OrderDetail.vue"
+          )
       }
     ]
   },

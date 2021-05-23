@@ -41,7 +41,7 @@ export default {
     // })
     loadData() {
       axios
-        .get("http://localhost:8080/api/products/productcategory/" + this.id)
+        .get("http://localhost:50052/api/products/productcategory/" + this.id)
         .then(res => (this.products = res.data));
     }
   },

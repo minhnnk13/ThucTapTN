@@ -19,7 +19,7 @@ export default {
     //load danh mục sản phẩm
     loadData: ({ commit }) => {
       axios
-        .get("http://localhost:8080/api/productcategorys")
+        .get("http://localhost:50052/api/productcategorys")
         .then(res => commit("setCategories", res.data));
     }
   }

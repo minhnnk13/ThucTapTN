@@ -8,7 +8,8 @@ import categories from "./modules/categories";
 import banners from "./modules/banners";
 import cart from "./modules/cart";
 import orders from "./modules/orders";
-
+import customers from "./modules/customers";
+import orderDetail from "./modules/order-detail";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -38,6 +39,8 @@ export default new Vuex.Store({
     categories,
     banners,
     cart,
-    orders
+    orders,
+    customers,
+    orderDetail
   }
 });

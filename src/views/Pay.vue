@@ -7,6 +7,8 @@
           <div class="input-row">
             <div class="input-field">
               <base-input
+                ref="firstInput"
+                @type="typing"
                 :class="{ required: !fieldValidate.firstName.isValidate }"
                 v-model="order.firstName"
                 >Họ <span>*</span>
@@ -21,6 +23,7 @@
             </div>
             <div class="input-field">
               <base-input
+                ref="input"
                 :class="{ required: !fieldValidate.lastName.isValidate }"
                 v-model="order.lastName"
                 >Tên <span>*</span>
@@ -317,6 +320,7 @@
           <div class="input-row">
             <div class="input-field">
               <base-input
+                ref="input"
                 v-model="order.address"
                 placeholder="Số nhà và tên đường"
                 :class="{ required: !fieldValidate.address.isValidate }"
@@ -338,6 +342,7 @@
           </div>
           <div class="input-row">
             <base-input
+              ref="input"
               :class="{ required: !fieldValidate.city.isValidate }"
               v-model="order.city"
               >Tỉnh / Thành phố <span>*</span
@@ -352,6 +357,7 @@
           </div>
           <div class="input-row">
             <base-input
+              ref="input"
               type="number"
               v-model="order.phoneNumber"
               :class="{ required: !fieldValidate.phoneNumber.isValidate }"
@@ -366,19 +372,9 @@
             >
           </div>
           <div class="input-row">
-            <base-input
-              type="email"
-              v-model="order.email"
-              :class="{ required: !fieldValidate.email.isValidate }"
-              >Địa chỉ email <span>*</span
-              ><span
-                slot="tooltip"
-                class="tooltip tooltip--input"
-                v-if="!fieldValidate.email.isValidate"
-              >
-                Dữ liệu không được để trống
-              </span></base-input
-            >
+            <base-input type="email" v-model="order.email"
+              >Địa chỉ email
+            </base-input>
           </div>
           <div class="additional">
             <div class="title">Thông tin bổ sung</div>
@@ -461,10 +457,6 @@ export default {
         phoneNumber: {
           isValidate: true,
           message: "Dữ liệu không được để trống"
-        },
-        email: {
-          isValidate: true,
-          message: "Dữ liệu không được để trống"
         }
       },
       order: {
@@ -504,6 +496,7 @@ export default {
   },
   methods: {
     ...mapActions("orders", { addData: "addOrder" }),
+
     formatMoney(money) {
       return new Intl.NumberFormat().format(money);
     },
@@ -525,8 +518,7 @@ export default {
         !this.order.lastName ||
         !this.order.address ||
         !this.order.city ||
-        !this.order.phoneNumber ||
-        !this.order.email
+        !this.order.phoneNumber
       ) {
         if (!this.order.firstName) {
           this.fieldValidate.firstName.isValidate = false;
@@ -553,18 +545,12 @@ export default {
         } else {
           this.fieldValidate.phoneNumber.isValidate = true;
         }
-        if (!this.order.email) {
-          this.fieldValidate.email.isValidate = false;
-        } else {
-          this.fieldValidate.email.isValidate = true;
-        }
       } else {
         this.fieldValidate.firstName.isValidate = true;
         this.fieldValidate.lastName.isValidate = true;
         this.fieldValidate.address.isValidate = true;
         this.fieldValidate.city.isValidate = true;
         this.fieldValidate.phoneNumber.isValidate = true;
-        this.fieldValidate.email.isValidate = true;
         status = true;
       }
       return status;
@@ -574,7 +560,13 @@ export default {
         await this.addData(this.order);
         localStorage.removeItem("cart");
         this.$router.push({ name: "PayDetail" });
+      } else {
+        this.$refs.firstInput.focus();
       }
+    },
+
+    typing() {
+      debugger;
     }
   },
   async mounted() {

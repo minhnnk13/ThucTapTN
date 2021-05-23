@@ -3,7 +3,7 @@
     <label><slot></slot></label>
     <slot name="input-icon"></slot>
     <input
-      @focus="$emit('focus')"
+      ref="input"
       v-bind="$attrs"
       :value="value"
       @input="$emit('input', $event.target.value)"
@@ -18,6 +18,11 @@ export default {
   props: ["value"],
   data() {
     return {};
+  },
+  methods: {
+    focus() {
+      this.$refs.input.focus();
+    }
   }
 };
 </script>
