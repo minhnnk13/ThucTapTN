@@ -7,7 +7,8 @@ export default {
     orders: [],
     order: {},
     orderProducts: [],
-    requestLogin: false
+    requestLogin: false,
+    totalOrders: []
   },
 
   getters: {
@@ -37,6 +38,10 @@ export default {
 
     requestLogin(state) {
       state.requestLogin = !state.requestLogin;
+    },
+
+    setTotalOrder(state, total) {
+      state.totalOrders = total;
     }
   },
   actions: {
@@ -94,6 +99,12 @@ export default {
       axios
         .get("http://localhost:51917/api/orders/customerId/" + customerId)
         .then(res => commit("setOrders", res.data));
+    },
+
+    getTotalOrderByYear: ({ commit }, yearh) => {
+      axios
+        .get("http://localhost:51917/api/Orders/total-order/" + yearh)
+        .then(res => commit("setTotalOrder", res.data));
     }
   }
 };

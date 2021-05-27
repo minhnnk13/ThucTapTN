@@ -128,14 +128,13 @@ export default {
     },
 
     formatStatus(status) {
-      debugger;
       let result = null;
       switch (status) {
-        case (1, true):
+        case 1:
           result = "Đặt hàng thành công!";
           break;
         case 2:
-          result = "Đã nhận hàng";
+          result = "Đã tiếp nhận";
           break;
       }
       return result;

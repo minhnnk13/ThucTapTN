@@ -26,9 +26,11 @@
             </div>
             <div class="product-price">
               <div class="old-price">
-                {{ product.productOldPrice }} <span>đ</span>
+                {{ formatMoney(product.productOldPrice) }} <span>đ</span>
               </div>
-              <div class="price">{{ product.productPrice }} <span>đ</span></div>
+              <div class="price">
+                {{ formatMoney(product.productPrice) }} <span>đ</span>
+              </div>
             </div>
           </div>
         </router-link>
@@ -51,7 +53,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions("products", { loadData: "loadData" })
+    ...mapActions("products", { loadData: "loadData" }),
+    formatMoney(money) {
+      return new Intl.NumberFormat().format(money);
+    }
   },
   created() {
     this.loadData();

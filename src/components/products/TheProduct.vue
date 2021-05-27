@@ -22,7 +22,13 @@
           {{ formatMoney(product.productPrice) }} <span>đ</span>
         </div>
       </div>
-      <div class="product__discount">-{{ product.productDiscount }}%</div>
+      <div class="product__discount">
+        -{{
+          Math.floor(
+            100 - (100 * product.productPrice) / product.productOldPrice
+          )
+        }}%
+      </div>
     </router-link>
   </div>
 </template>

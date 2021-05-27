@@ -21,9 +21,11 @@
       </CRow>
       <div class="dialog-content">
         <CRow>
-          <CCol sm="6">
+          <CCol sm="12">
             <CInput label="Tên sản phẩm" v-model="currentProduct.productName" />
           </CCol>
+        </CRow>
+        <CRow>
           <CCol sm="6">
             <CInput
               label="Giá sản phẩm"
@@ -31,20 +33,11 @@
               v-model="currentProduct.productPrice"
             />
           </CCol>
-        </CRow>
-        <CRow>
           <CCol sm="6">
             <CInput
               label="Giá cũ"
               type="number"
               v-model="currentProduct.productOldPrice"
-            />
-          </CCol>
-          <CCol sm="6">
-            <CInput
-              label="Khuyễn mãi"
-              type="number"
-              v-model="currentProduct.productDiscount"
             />
           </CCol>
         </CRow>
@@ -158,7 +151,6 @@ export default {
         productImage: "",
         productOldPrice: null,
         productPrice: null,
-        productDiscount: null,
         productDescription: ``,
         productGuarantee: ``,
         productPromotion: ``,

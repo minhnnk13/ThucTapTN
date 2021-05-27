@@ -41,7 +41,7 @@
                 <tr v-for="(product, index) in item.products" :key="index">
                   <td>
                     {{ product.productName }}
-                  </td> 
+                  </td>
                   <td>
                     {{ product.quantity }}
                   </td>
