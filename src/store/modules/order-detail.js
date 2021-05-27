@@ -32,10 +32,34 @@ export default {
   actions: {
     getOrderDetail: ({ commit }, orderId) => {
       axios
-        .get("http://localhost:50052/api/OrderProduct/orderId/" + orderId)
+        .get("http://localhost:51917/api/OrderProduct/orderId/" + orderId)
         .then(res => {
           commit("setOrder", res.data);
         });
+    },
+
+    addOrderDetail: async ({ commit }, products) => {
+      products.forEach(async product => {
+        let orderDetail = {
+          productId: product.productId,
+          orderId: Number(localStorage.getItem("orderId")),
+          quantity: product.count
+        };
+
+        await axios
+          .post("http://localhost:51917/api/OrderDetail", orderDetail)
+          .then(res => {
+            let orderProducts = {
+              ...res.data,
+              productImage: product.productImage,
+              productName: product.productName,
+              productPrice: product.productPrice,
+              createdDate: localStorage.getItem("createdDate"),
+              totalAmount: localStorage.getItem("totalAmount")
+            };
+            commit("setOrderProducts", orderProducts);
+          });
+      });
     }
   }
 };

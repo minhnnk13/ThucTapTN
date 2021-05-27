@@ -32,22 +32,22 @@ export default {
   actions: {
     loadData: ({ commit }) => {
       axios
-        .get("http://localhost:50052/api/params")
+        .get("http://localhost:51917/api/params")
         .then(res => commit("setParams", res.data));
     },
     loadDataById: ({ commit }, id) => {
       axios
-        .get("http://localhost:50052/api/param/" + id)
+        .get("http://localhost:51917/api/param/" + id)
         .then(res => commit("setParam", res.data));
     },
     editParam: ({ commit }, param) => {
       axios
-        .put("http://localhost:50052/api/param/" + param.paramId, param)
+        .put("http://localhost:51917/api/param/" + param.paramId, param)
         .then(commit("editParam", param));
     },
     removeParam: ({ commit }, id) => {
       axios
-        .deletess("http://localhost:50052/api/param/" + id)
+        .deletess("http://localhost:51917/api/param/" + id)
         .then(commit("removeParam", id));
     }
   }

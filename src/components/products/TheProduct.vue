@@ -65,7 +65,8 @@ export default {
     text-align: center;
     padding: 15px 20px;
     .format-text {
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
+      min-height: 65px;
     }
   }
   &__price {

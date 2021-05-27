@@ -39,9 +39,9 @@ export default {
     // ...mapActions("products", {
     //   loadProductsByCategory: "loadProductsByCategory"
     // })
-    loadData() {
-      axios
-        .get("http://localhost:50052/api/products/productcategory/" + this.id)
+    async loadData() {
+      await axios
+        .get("http://localhost:51917/api/products/productcategory/" + this.id)
         .then(res => (this.products = res.data));
     }
   },

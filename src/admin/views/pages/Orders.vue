@@ -38,21 +38,18 @@
                 </tr>
               </thead>
               <tbody class="orderProductDetail">
-                <tr
-                  v-for="(product, index) in item.orderProductItems"
-                  :key="index"
-                >
+                <tr v-for="(product, index) in item.products" :key="index">
                   <td>
                     {{ product.productName }}
-                  </td>
+                  </td> 
                   <td>
-                    1
+                    {{ product.quantity }}
                   </td>
                   <td>
                     {{ product.productPrice }}
                   </td>
                   <td>
-                    {{ product.productPrice * 1 }}
+                    {{ product.productPrice * product.quantity }}
                   </td>
                 </tr>
               </tbody>
@@ -141,8 +138,9 @@ export default {
   computed: {
     ...mapGetters("orders", { orders: "getOrders" })
   },
+
   methods: {
-    ...mapActions("orders", { loadData: "loadData" }),
+    ...mapActions("orders", { loadData: "getDetailOrders" }),
     toggleDetails(item, index) {
       this.$set(this.orders[index], "_toggled", !item._toggled);
       this.collapseDuration = 300;

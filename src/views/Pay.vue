@@ -8,7 +8,6 @@
             <div class="input-field">
               <base-input
                 ref="firstInput"
-                @type="typing"
                 :class="{ required: !fieldValidate.firstName.isValidate }"
                 v-model="order.firstName"
                 >Họ <span>*</span>
@@ -430,7 +429,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import BaseInput from "../components/control/BaseInput.vue";
 export default {
   components: { BaseInput },
@@ -472,12 +471,13 @@ export default {
         email: "",
         orderStatus: true,
         note: "",
-        orderProducts: "",
         createdDate: ""
       }
     };
   },
   computed: {
+    ...mapGetters("customers", { loginStatus: "getLoginStatus" }),
+
     amount() {
       let amount = 0;
       this.cart.forEach(
@@ -492,33 +492,112 @@ export default {
       var yyyy = today.getFullYear();
       today = yyyy + "-" + mm + "-" + dd;
       return today;
+    },
+
+    firstName() {
+      return this.order.firstName;
+    },
+
+    lastName() {
+      return this.order.lastName;
+    },
+
+    address() {
+      return this.order.address;
+    },
+
+    city() {
+      return this.order.city;
+    },
+
+    phoneNumber() {
+      return this.order.phoneNumber;
+    },
+
+    login() {
+      return localStorage.getItem("login");
     }
   },
+
+  watch: {
+    loginStatus() {
+      if (this.loginStatus) {
+        this.order.firstName = sessionStorage.firstName;
+        this.order.lastName = sessionStorage.lastName;
+        this.order.address = this.removeNull(sessionStorage.address);
+        this.order.city = this.removeNull(sessionStorage.city);
+        this.order.phoneNumber = sessionStorage.phoneNumber;
+        this.order.email = this.removeNull(sessionStorage.email);
+      } else {
+        this.order.firstName = null;
+        this.order.lastName = null;
+        this.order.address = null;
+        this.order.city = null;
+        this.order.phoneNumber = null;
+        this.order.email = null;
+      }
+    },
+
+    firstName() {
+      this.fieldValidate.firstName.isValidate = true;
+    },
+
+    lastName() {
+      this.fieldValidate.lastName.isValidate = true;
+    },
+
+    address() {
+      this.fieldValidate.address.isValidate = true;
+    },
+
+    city() {
+      this.fieldValidate.city.isValidate = true;
+    },
+
+    phoneNumber() {
+      this.fieldValidate.phoneNumber.isValidate = true;
+    }
+  },
+
   methods: {
-    ...mapActions("orders", { addData: "addOrder" }),
+    ...mapActions("orders", {
+      addData: "addOrder"
+    }),
+    ...mapActions("orderDetail", ["addOrderDetail"]),
+
+    ...mapMutations("orders", ["requestLogin"]),
+
+    removeNull(text) {
+      let result = text;
+
+      if (result == "null") {
+        result = null;
+      }
+      return result;
+    },
 
     formatMoney(money) {
       return new Intl.NumberFormat().format(money);
     },
-    getOrderProduct() {
-      this.cart.forEach((item, index) => {
-        if (index == 0) {
-          this.order.orderProducts += item.productId;
-        } else {
-          for (let i = 0; i < item.count; i++) {
-            this.order.orderProducts += "," + item.productId;
-          }
-        }
-      });
-    },
+    // getOrderProduct() {
+    //   this.cart.forEach((item, index) => {
+    //     if (index == 0) {
+    //       this.order.orderProducts += item.productId;
+    //     } else {
+    //       for (let i = 0; i < item.count; i++) {
+    //         this.order.orderProducts += "," + item.productId;
+    //       }
+    //     }
+    //   });
+    // },
     validate() {
       let status = false;
       if (
-        !this.order.firstName ||
-        !this.order.lastName ||
-        !this.order.address ||
-        !this.order.city ||
-        !this.order.phoneNumber
+        !this.firstName ||
+        !this.lastName ||
+        !this.address ||
+        !this.city ||
+        !this.phoneNumber
       ) {
         if (!this.order.firstName) {
           this.fieldValidate.firstName.isValidate = false;
@@ -555,20 +634,25 @@ export default {
       }
       return status;
     },
-    async addOrder() {
-      if (this.validate()) {
-        await this.addData(this.order);
-        localStorage.removeItem("cart");
-        this.$router.push({ name: "PayDetail" });
-      } else {
-        this.$refs.firstInput.focus();
-      }
-    },
 
-    typing() {
-      debugger;
+    async addOrder() {
+      if (sessionStorage.customerId) {
+        if (this.validate()) {
+          this.order.customerId = Number(sessionStorage.customerId);
+          this.order.totalAmount = this.amount;
+          await this.addData(this.order);
+          await this.addOrderDetail(this.cart);
+          localStorage.removeItem("cart");
+          this.$router.push({ name: "PayDetail" });
+        } else {
+          this.$refs.firstInput.focus();
+        }
+      } else {
+        this.requestLogin();
+      }
     }
   },
+
   async mounted() {
     if (localStorage.getItem("cart")) {
       try {
@@ -578,7 +662,15 @@ export default {
       }
     }
     this.order.createdDate = this.getCurrentDate;
-    this.getOrderProduct();
+    if (this.loginStatus) {
+      this.order.firstName = sessionStorage.firstName;
+      this.order.lastName = sessionStorage.lastName;
+      this.order.address = this.removeNull(sessionStorage.address);
+      this.order.city = this.removeNull(sessionStorage.city);
+      this.order.phoneNumber = sessionStorage.phoneNumber;
+      this.order.email = this.removeNull(sessionStorage.email);
+    }
+    // this.getOrderProduct();
   }
 };
 </script>

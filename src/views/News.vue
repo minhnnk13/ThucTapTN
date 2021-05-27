@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import RelatedNews from "../components/related/RelatedNews.vue";
 import RelatedProducts from "../components/related/RelatedProducts.vue";
 export default {
@@ -66,86 +66,11 @@ export default {
             class="fas fa-chevron-left"
           ></i
           >`,
-      pageRange: 3,
-      news: [
-        {
-          newsId: 1,
-          newsTitle: "Bảo hành hấp dẫn",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Thông tin bảo hành trong vòng 2 năm"
-        },
-        {
-          newsId: 2,
-          newsTitle: "Hướng dẫn mua hàng trực tuyến",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Hướng dẫn mua hàng trực tuyến qua website www.manhnhatpc.com"
-        },
-        {
-          newsId: 3,
-          newsTitle: "Hướng dẫn mua trả góp",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Hướng dẫn mua trả góp tại Mạnh Nhất Computer"
-        },
-        {
-          newsId: 4,
-          newsTitle: "Phương thức thanhh toán",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Phương thức thanh toán onl hoặc mua trực tiếp"
-        },
-        {
-          newsId: 5,
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Giao hàng tận nha cho khách hàng"
-        },
-        {
-          newsId: 6,
-          newsTitle: "Tặng quà khủng mua 1 tặng 5",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription:
-            "Mạnh Nhất Computer có khuyến mãi cực sốc mua 1 tặng 5"
-        },
-        {
-          newsId: 7,
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Giao hàng tận nha cho khách hàng"
-        },
-        {
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Giao hàng tận nha cho khách hàng"
-        },
-        {
-          newsId: 9,
-          newsTitle: "Chính sách giao hàng",
-          newsImage: "news.jpg",
-          newsDate: "30",
-          newsMonth: "12",
-          newsDescription: "Giao hàng tận nha cho khách hàng"
-        }
-      ]
+      pageRange: 3
     };
   },
   computed: {
-    // ...mapGetters("news", { news: "getNews" }),
+    ...mapGetters("news", { news: "getNews" }),
 
     pageCount() {
       let pageCount;

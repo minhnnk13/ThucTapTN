@@ -1,12 +1,15 @@
 import axios from "axios";
+import { Notification } from "element-ui";
 
 export default {
   namespaced: true,
   state: {
     orders: [],
     order: {},
-    orderProducts: []
+    orderProducts: [],
+    requestLogin: false
   },
+
   getters: {
     getOrders: state => {
       return state.orders;
@@ -30,64 +33,66 @@ export default {
     },
     setOrderProducts: (state, orderProduct) => {
       state.orderProducts.push(orderProduct);
+    },
+
+    requestLogin(state) {
+      state.requestLogin = !state.requestLogin;
     }
   },
   actions: {
-    loadData: async ({ commit, state }) => {
+    loadData: async ({ commit }) => {
       await axios
-        .get("http://localhost:50052/api/orders")
+        .get("http://localhost:51917/api/orders")
         .then(res => commit("setOrders", res.data));
-      state.orders.forEach(item => {
-        let orderProducts = item.orderProducts.split(",");
-        orderProducts.forEach((item, index) => {
-          orderProducts[index] = Number(item);
-        });
-        let orderProductItems = [];
-        // let count = 0;
-        // for (let i = 0; i < orderProducts.length; i++) {
-        //   for (let j = orderProducts.length - 1; j > i; j--) {
-        //     if (orderProducts[i] == orderProducts[j]) {
-        //       orderProducts.splice(i, 1);
-        //       count = count + 1;
-        //     }
-        //   }
-        // }
+    },
 
-        orderProducts.forEach(productId => {
-          axios
-            .get("http://localhost:50052/api/products/" + productId)
-            .then(res => orderProductItems.push(res.data));
-        });
-        item.orderProductItems = orderProductItems;
+    getDetailOrders: async ({ commit }) => {
+      let orders = [];
+      await axios
+        .get("http://localhost:51917/api/orders")
+        .then(res => (orders = res.data));
+
+      orders.forEach(order => {
+        axios
+          .get(
+            "http://localhost:51917/api/OrderProduct/orderId/" + order.orderId
+          )
+          .then(res => (order.products = res.data), commit("addOrder", order));
       });
     },
+
     loadDataById: ({ commit }, id) => {
       axios
-        .get("http://localhost:50052/api/orders/" + id)
+        .get("http://localhost:51917/api/orders/" + id)
         .then(res => commit("setOrder", res.data));
     },
-    addOrder: ({ commit }, order) => {
-      axios
-        .post("http://localhost:50052/api/orders", order)
-        .then(
-          res => (
-            commit("addOrder", res.data),
-            localStorage.setItem("orderId", res.data.orderId)
-          )
-        );
+    addOrder: async ({ commit }, order) => {
+      await axios.post("http://localhost:51917/api/orders", order).then(
+        res => (
+          commit("addOrder", res.data),
+          localStorage.setItem("orderId", res.data.orderId),
+          localStorage.setItem("totalAmount", res.data.totalAmount),
+          localStorage.setItem("createdDate", res.data.createdDate)
+        ),
+        Notification.success({
+          title: "Thành công!",
+          message: "Đặt hàng thành công!",
+          type: "success"
+        })
+      );
     },
     loadOrderProduct: ({ commit }, order) => {
       let orderProducts = order.orderProducts.split(",");
       orderProducts.forEach(item => {
         axios
-          .get("http://localhost:50052/api/products/" + item)
+          .get("http://localhost:51917/api/products/" + item)
           .then(res => commit("setOrderProducts", res.data));
       });
     },
 
     getCustomerByCustomerId: ({ commit }, customerId) => {
       axios
-        .get("http://localhost:50052/api/orders/customerId/" + customerId)
+        .get("http://localhost:51917/api/orders/customerId/" + customerId)
         .then(res => commit("setOrders", res.data));
     }
   }

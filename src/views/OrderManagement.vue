@@ -75,7 +75,7 @@
                 {{ createDate(order.createdDate) }}
               </td>
               <td>
-                {{ order.orderStatus }}
+                {{ formatStatus(order.orderStatus) }}
               </td>
             </tr>
           </table>
@@ -125,6 +125,20 @@ export default {
 
     getOrderDetail(orderId) {
       this.$router.push(`order-detail/${orderId}`);
+    },
+
+    formatStatus(status) {
+      debugger;
+      let result = null;
+      switch (status) {
+        case (1, true):
+          result = "Đặt hàng thành công!";
+          break;
+        case 2:
+          result = "Đã nhận hàng";
+          break;
+      }
+      return result;
     }
   },
 

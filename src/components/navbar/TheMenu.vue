@@ -22,9 +22,9 @@
       <li>
         <router-link to="/news">Tin tức</router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link to="/">Liên hệ</router-link>
-      </li>
+      </li> -->
     </ul>
     <div class="user" @click="userClick">
       <i class="fas fa-user"></i>
@@ -59,7 +59,10 @@
     <Dialog :visible.sync="isOpenDialog" width="30%" title="Tài khoản">
       <Tabs v-model="activeName">
         <tab-pane label="Đăng nhập" name="first" v-model="activeName">
-          <base-input v-model="accountLogin.phoneNumber">
+          <base-input
+            v-model="accountLogin.phoneNumber"
+            :class="{ required: !fieldValidate.login.phoneNumber }"
+          >
             Số điện thoại
             <span
               v-if="!fieldValidate.login.phoneNumber"
@@ -71,8 +74,10 @@
           </base-input>
 
           <base-input
+            type="password"
             v-model="accountLogin.password"
             @keyup.enter.native="login"
+            :class="{ required: !fieldValidate.login.password }"
           >
             Mật khẩu
             <span
@@ -89,8 +94,11 @@
           </base-button>
         </tab-pane>
         <tab-pane label="Đăng ký" name="second">
-          <base-input v-model="accountRegister.firstName">
-            Họ
+          <base-input
+            v-model="accountRegister.firstName"
+            :class="{ required: !fieldValidate.register.firstName }"
+          >
+            Họ <span class="t-red">*</span>
             <span
               v-if="!fieldValidate.register.firstName"
               slot="tooltip"
@@ -100,8 +108,11 @@
             </span>
           </base-input>
 
-          <base-input v-model="accountRegister.lastName">
-            Tên
+          <base-input
+            v-model="accountRegister.lastName"
+            :class="{ required: !fieldValidate.register.lastName }"
+          >
+            Tên <span class="t-red">*</span>
             <span
               v-if="!fieldValidate.register.lastName"
               slot="tooltip"
@@ -111,8 +122,11 @@
             </span>
           </base-input>
 
-          <base-input v-model="accountRegister.phoneNumber">
-            Số điện thoại
+          <base-input
+            v-model="accountRegister.phoneNumber"
+            :class="{ required: !fieldValidate.register.phoneNumber }"
+          >
+            Số điện thoại <span class="t-red">*</span>
             <span
               v-if="!fieldValidate.register.phoneNumber"
               slot="tooltip"
@@ -126,8 +140,18 @@
             Địa chỉ Email
           </base-input>
 
-          <base-input v-model="accountRegister.password">
-            Mật khẩu
+          <base-input
+            v-model="accountRegister.password"
+            :class="{ required: !fieldValidate.register.password }"
+          >
+            Mật khẩu <span class="t-red">*</span>
+            <span
+              v-if="!fieldValidate.register.password"
+              slot="tooltip"
+              class="tooltip tooltip--input"
+            >
+              Dữ liệu không được để trống
+            </span>
           </base-input>
 
           <base-input v-model="accountRegister.city">
@@ -154,7 +178,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import { eventBus } from "../../main";
 import { Dialog, Tabs, TabPane, Radio } from "element-ui";
 import BaseInput from "../control/BaseInput.vue";
@@ -195,7 +219,8 @@ export default {
         register: {
           firstName: true,
           lastName: true,
-          phoneNumber: true
+          phoneNumber: true,
+          password: true
         }
       },
 
@@ -221,16 +246,76 @@ export default {
     ...mapGetters("customers", {
       loginStatus: "getLoginStatus",
       customer: "getCustomer"
-    })
+    }),
+    ...mapState("orders", ["requestLogin"]),
 
+    userName() {
+      return this.accountLogin.phoneNumber;
+    },
+
+    password() {
+      return this.accountLogin.password;
+    },
+
+    firstName() {
+      return this.accountRegister.firstName;
+    },
+
+    lastName() {
+      return this.accountRegister.lastName;
+    },
+
+    phoneNumber() {
+      return this.accountRegister.phoneNumber;
+    },
+
+    pass() {
+      return this.accountRegister.password;
+    }
     // total() {
     //   let total = JSON.parse(localStorage.getItem("cart")).length;
     //   return total;
     // }
   },
+  watch: {
+    requestLogin() {
+      this.isOpenDialog = true;
+      Notification.success({
+        title: "Thông báo!",
+        message: "Xin mời đăng nhập!",
+        type: "success"
+      });
+    },
+
+    userName() {
+      this.fieldValidate.login.phoneNumber = true;
+    },
+
+    password() {
+      this.fieldValidate.login.password = true;
+    },
+
+    firstName() {
+      this.fieldValidate.register.firstName = true;
+    },
+
+    lastName() {
+      this.fieldValidate.register.lastName = true;
+    },
+
+    phoneNumber() {
+      this.fieldValidate.register.phoneNumber = true;
+    },
+
+    pass() {
+      this.fieldValidate.register.password = true;
+    }
+  },
+
   methods: {
     ...mapActions("categories", { loadData: "loadData" }),
     ...mapActions("customers", { registerAcc: "register", loginAcc: "login" }),
+    ...mapMutations("customers", ["logOut"]),
 
     routerPath(id) {
       return `/category/${id}`;
@@ -245,31 +330,95 @@ export default {
         this.isLogin.userName = null;
       }
     },
+
+    validateLogin() {
+      let status = false;
+      if (!this.accountLogin.phoneNumber || !this.accountLogin.password) {
+        if (!this.accountLogin.phoneNumber) {
+          this.fieldValidate.login.phoneNumber = false;
+        } else {
+          this.fieldValidate.login.phoneNumber = true;
+        }
+        if (!this.accountLogin.password) {
+          this.fieldValidate.login.password = false;
+        } else {
+          this.fieldValidate.login.password = true;
+        }
+      } else {
+        this.fieldValidate.login.phoneNumber = true;
+        this.fieldValidate.login.password = true;
+        status = true;
+      }
+      return status;
+    },
+
+    validateRegister() {
+      let status = false;
+      if (
+        !this.accountRegister.firstName ||
+        !this.accountRegister.lastName ||
+        !this.accountRegister.phoneNumber ||
+        !this.accountRegister.password
+      ) {
+        if (!this.accountRegister.firstName) {
+          this.fieldValidate.register.firstName = false;
+        } else {
+          this.fieldValidate.register.firstName = true;
+        }
+        if (!this.accountRegister.lastName) {
+          this.fieldValidate.register.lastName = false;
+        } else {
+          this.fieldValidate.register.lastName = true;
+        }
+        if (!this.accountRegister.phoneNumber) {
+          this.fieldValidate.register.phoneNumber = false;
+        } else {
+          this.fieldValidate.register.phoneNumber = true;
+        }
+        if (!this.accountRegister.password) {
+          this.fieldValidate.register.password = false;
+        } else {
+          this.fieldValidate.register.password = true;
+        }
+      } else {
+        this.fieldValidate.register.firstName = true;
+        this.fieldValidate.register.lastName = true;
+        this.fieldValidate.register.phoneNumber = true;
+        this.fieldValidate.register.password = true;
+        status = true;
+      }
+      return status;
+    },
+
     async login() {
       await this.loginAcc(this.accountLogin);
 
-      if (this.loginStatus) {
-        Notification.success({
-          title: "Thành công!",
-          message: "Đăng nhập thành công",
-          type: "success"
-        });
+      if (this.validateLogin()) {
+        if (this.loginStatus) {
+          Notification.success({
+            title: "Thành công!",
+            message: "Đăng nhập thành công",
+            type: "success"
+          });
 
-        this.isOpenDialog = false;
-        this.getLoginStatus();
-      } else {
-        Notification.error({
-          title: "Thất bại!",
-          message: "Sai tên đăng nhập hoặc mật khẩu"
-        });
+          this.isOpenDialog = false;
+          this.getLoginStatus();
+        } else {
+          Notification.error({
+            title: "Thất bại!",
+            message: "Sai tên đăng nhập hoặc mật khẩu"
+          });
+        }
       }
     },
 
     async register() {
-      await this.registerAcc(this.accountRegister);
+      if (this.validateRegister()) {
+        await this.registerAcc(this.accountRegister);
 
-      this.activeName = "first";
-      this.accountRegister = "null";
+        this.activeName = "first";
+        this.accountRegister = "null";
+      }
     },
 
     userClick() {
@@ -283,6 +432,7 @@ export default {
     signOut() {
       sessionStorage.clear();
       this.getLoginStatus();
+      this.logOut();
       this.isPopover = false;
       this.isOpenDialog = false;
     },

@@ -46,43 +46,46 @@ export default {
   },
   actions: {
     //gọi api load toàn bộ sản phẩm
-    loadData: ({ commit }) => {
-      axios
-        .get("http://localhost:50052/api/products")
+    loadData: async ({ commit }) => {
+      await axios
+        .get("http://localhost:51917/api/products")
         .then(res => commit("setProducts", res.data));
     },
     //lấy theo id
     loadDataById: async ({ commit }, id) => {
       await axios
-        .get("http://localhost:50052/api/products/" + id)
+        .get("http://localhost:51917/api/products/" + id)
         .then(res => commit("setProduct", res.data));
     },
 
     //lấy theo danh mục
-    loadProductsByCategory: ({ commit }, id) => {
-      axios
-        .get("http://localhost:50052/api/products/productcategory/" + id)
+    loadProductsByCategory: async ({ commit }, id) => {
+      await axios
+        .get("http://localhost:51917/api/products/productcategory/" + id)
         .then(res => commit("setProducts", res.data));
     },
 
     //gọi api thêm
-    addProduct: ({ commit }, product) => {
-      axios
-        .post("http://localhost:50052/api/products", product)
+    addProduct: async ({ commit }, product) => {
+      await axios
+        .post("http://localhost:51917/api/products", product)
         .then(res => commit("addProduct", res.data));
     },
 
     //sửa product api
     editProduct: async ({ commit }, product) => {
       await axios
-        .put("http://localhost:50052/api/products/" + product.productId, product)
+        .put(
+          "http://localhost:51917/api/products/" + product.productId,
+          product
+        )
         .then(commit("editProduct", product));
     },
 
     //xóa product
-    removeProduct: ({ commit }, id) => {
-      axios
-        .delete("http://localhost:50052/api/products/" + id)
+    removeProduct: async ({ commit }, id) => {
+      await axios
+        .delete("http://localhost:51917/api/products/" + id)
         .then(commit("removeProduct", id));
     }
   }
