@@ -248,6 +248,7 @@ export default {
       customer: "getCustomer"
     }),
     ...mapState("orders", ["requestLogin"]),
+    ...mapState("cart", ["clearCart"]),
 
     userName() {
       return this.accountLogin.phoneNumber;
@@ -309,6 +310,10 @@ export default {
 
     pass() {
       this.fieldValidate.register.password = true;
+    },
+
+    clearCart() {
+      this.total = 0;
     }
   },
 

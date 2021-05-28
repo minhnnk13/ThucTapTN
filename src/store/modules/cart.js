@@ -1,7 +1,8 @@
 export default {
   namespaced: true,
   state: {
-    cart: []
+    cart: [],
+    clearCart: false
   },
   getters: {
     getCart: state => {
@@ -27,6 +28,10 @@ export default {
         item => (item.productId = cart.productId)
       );
       state.cart.splice(index, 1);
+    },
+
+    clearCart(state) {
+      state.clearCart = !state.clearCart;
     }
   },
   actions: {

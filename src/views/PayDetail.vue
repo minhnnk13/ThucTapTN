@@ -68,15 +68,19 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
-    ...mapGetters("orderDetail", { orderProducts: "getOrderProducts" })
+    ...mapGetters("orderDetail", { orderProducts: "getOrderProducts" }),
+    ...mapMutations("orderDetail", ["clearOrderProducts"])
   },
   methods: {
     formatMoney(money) {
       return new Intl.NumberFormat().format(money);
     }
+  },
+  destroyed() {
+    this.clearOrderProducts();
   }
 };
 </script>

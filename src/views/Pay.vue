@@ -469,7 +469,7 @@ export default {
         city: "",
         phoneNumber: "",
         email: "",
-        orderStatus: true,
+        orderStatus: 1,
         note: "",
         createdDate: ""
       }
@@ -567,6 +567,8 @@ export default {
 
     ...mapMutations("orders", ["requestLogin"]),
 
+    ...mapMutations("cart", ["clearCart"]),
+
     removeNull(text) {
       let result = text;
 
@@ -642,6 +644,7 @@ export default {
           this.order.totalAmount = this.amount;
           await this.addData(this.order);
           await this.addOrderDetail(this.cart);
+          this.clearCart();
           localStorage.removeItem("cart");
           this.$router.push({ name: "PayDetail" });
         } else {
@@ -662,7 +665,7 @@ export default {
       }
     }
     this.order.createdDate = this.getCurrentDate;
-    if (this.loginStatus) {
+    if (sessionStorage.login) {
       this.order.firstName = sessionStorage.firstName;
       this.order.lastName = sessionStorage.lastName;
       this.order.address = this.removeNull(sessionStorage.address);

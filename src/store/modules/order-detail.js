@@ -27,6 +27,10 @@ export default {
     },
     setOrderProducts: (state, orderProduct) => {
       state.orderProducts.push(orderProduct);
+    },
+
+    clearOrderProducts: state => {
+      state.orderProducts = [];
     }
   },
   actions: {
