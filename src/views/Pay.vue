@@ -469,7 +469,7 @@ export default {
         city: "",
         phoneNumber: "",
         email: "",
-        orderStatus: true,
+        orderStatus: 1,
         note: "",
         createdDate: ""
       }
@@ -662,7 +662,7 @@ export default {
       }
     }
     this.order.createdDate = this.getCurrentDate;
-    if (this.loginStatus) {
+    if (sessionStorage.login) {
       this.order.firstName = sessionStorage.firstName;
       this.order.lastName = sessionStorage.lastName;
       this.order.address = this.removeNull(sessionStorage.address);

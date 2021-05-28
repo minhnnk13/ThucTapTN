@@ -7,7 +7,7 @@
             <div class="infor">
               <div class="content">
                 <div class="logo">
-                  <img width="150px" src="../assets/images/logo1.png" alt="" />
+                  <img width="150px" src="../assets/images/logothuy.png" alt="" />
                 </div>
                 <ul>
                   <li>
@@ -41,12 +41,12 @@
               </li>
               <li>
                 <router-link to="">
-                  tin tức
+                  Tin tức
                 </router-link>
               </li>
               <li>
                 <router-link to="">
-                  liên hệ
+                  Liên hệ
                 </router-link>
               </li>
             </ul>
@@ -133,10 +133,10 @@ export default {
   data() {
     return {
       param: {
-        address: "Số 96 Ngõ 136 đường Cầu Diễn",
-        phoneNumber: "0988317051",
-        email: "chimsetrongmua@gmail.com",
-        website: "www.namthanhcomputer.com"
+        address: "Phố Nỷ, Trung Giã, Sóc Sơn, Hà Nội",
+        phoneNumber: "0349131080",
+        email: "thuya2tg@gmail.com",
+        website: "www.manhnhatcomputer.com"
       }
     };
   }

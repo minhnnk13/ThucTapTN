@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-3">
           <router-link to="/"
-            ><img height="130px" src="@/assets/images/logo1.png" alt=""
+            ><img height="130px" src="@/assets/images/logothuy.png" alt=""
           /></router-link>
         </div>
         <div class="col-md-6 f-center p-0 ">
@@ -18,10 +18,10 @@
         <div class="col-md-3 f-center">
           <div class="contact">
             <div class="hotline">
-              <a href="tel: 0988317051">Hotline: 0988317051</a>
+              <a href="tel: 0988317051">Hotline: 0349131080</a>
             </div>
             <div class="address">
-              Số 96 Ngõ 136 Đường Cầu Diễn
+              Phố Nỷ, Trung Giã, Sóc Sơn, Hà Nội
             </div>
           </div>
         </div>
