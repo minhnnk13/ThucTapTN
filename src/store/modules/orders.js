@@ -13,6 +13,7 @@ export default {
 
   getters: {
     getOrders: state => {
+      
       return state.orders;
     },
     getOrder: state => {

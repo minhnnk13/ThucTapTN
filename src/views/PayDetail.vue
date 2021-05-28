@@ -1,6 +1,7 @@
 <template>
   <div class="order-detail">
     <div class="container">
+      <h2 class="t-center t-b" style="margin-top: 30px">Đơn hàng của bạn đã được ghi nhận <br/>Cửa hàng sẽ sớm liên lạc với quý khách <br> Xin chân thành cảm ơn!</h2>
       <div class="head">
         <div class="title f-b">
           <h3>Đơn hàng số #{{ orderProducts[0].orderId }}</h3>

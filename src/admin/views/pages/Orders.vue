@@ -31,6 +31,7 @@
             <table width="100%">
               <thead>
                 <tr>
+                  <th>Mã sản phẩm </th>
                   <th>Tên Sản phẩm</th>
                   <th>Số lượng</th>
                   <th>Đơn giá</th>
@@ -39,6 +40,9 @@
               </thead>
               <tbody class="orderProductDetail">
                 <tr v-for="(product, index) in item.products" :key="index">
+                  <td>
+                    {{product.productId}}
+                  </td>
                   <td>
                     {{ product.productName }}
                   </td>
@@ -104,11 +108,11 @@ export default {
         //   _style: "min-width:120px",
         //   label: "Mã bưu điện"
         // },
-        {
-          key: "city",
-          _style: "min-width:140px",
-          label: "Tỉnh / Thành phố"
-        },
+        // {
+        //   key: "city",
+        //   _style: "min-width:140px",
+        //   label: "Tỉnh / Thành phố"
+        // },
         {
           key: "phoneNumber",
           _style: "min-width:150px",
@@ -124,7 +128,11 @@ export default {
           _style: "min-width:150px",
           label: "Ghi chú"
         },
-
+        {
+          key: "createdDate",
+          _style: "min-width:150px",
+          label: "Ngày đặt hàng"
+        },
         {
           key: "show_details",
           label: "",
